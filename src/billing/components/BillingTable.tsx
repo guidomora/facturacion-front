@@ -14,8 +14,8 @@ const BillingTable = () => {
     return (
         <Grid width={'100%'} p={7} display={"flex"} justifyContent={"center"}>
             <Box width={"10%"} display={"flex"} flexDirection={"column"} alignContent={"center"} borderRadius={'5px 0px 0px 5px'}
-                sx={{ backgroundColor: 'white', color: 'black', p: '0px 0px' }}>
-                <Typography sx={{ p: '5px 10px', borderBottom: '1px solid black' }} width={'100%'} fontWeight={600}>Date</Typography>
+                sx={{ backgroundColor: '#f8f8f8', color: 'black', p: '0px 0px' }}>
+                <Typography borderRadius={'5px 0px 0px 0px'} sx={{backgroundColor:'#d4d4d4', p: '5px 10px', borderBottom: '1px solid black' }} width={'100%'} fontWeight={600}>Date</Typography>
                 {bills.map((bill: Bill) => {
                     return (
                         <Typography key={bill.id} borderBottom={'2px solid grey'} height={100} sx={{ p: '5px 10px' }}>{bill.date}</Typography>
@@ -23,8 +23,8 @@ const BillingTable = () => {
                 })}
             </Box>
             <Box width={"60%"} display={"flex"} flexDirection={"column"} alignContent={"center"}
-                sx={{ backgroundColor: 'white', color: 'black', p: '0px 0px' }}>
-                <Typography sx={{ p: '5px', borderBottom: '1px solid black' }} width={'100%'} fontWeight={600}>Detail</Typography>
+                sx={{ backgroundColor: '#f8f8f8', color: 'black', p: '0px 0px' }}>
+                <Typography sx={{backgroundColor:'#d4d4d4', p: '5px', borderBottom: '1px solid black' }} width={'100%'} fontWeight={600}>Detail</Typography>
                 {bills.map((bill: Bill) => {
                     return (
                         <Typography key={bill.id} borderBottom={'2px solid grey'} height={100} sx={{ p: '5px 5px' }}>{bill.description}</Typography>
@@ -32,8 +32,8 @@ const BillingTable = () => {
                 })}
             </Box>
             <Box width={"5%"} display={"flex"} flexDirection={"column"} alignContent={"center"}
-                sx={{ backgroundColor: 'white', color: 'black', p: '0px 0px' }}>
-                <Typography sx={{ p: '5px', borderBottom: '1px solid black' }} width={'100%'} fontWeight={600}>Id</Typography>
+                sx={{ backgroundColor: '#f8f8f8', color: 'black', p: '0px 0px' }}>
+                <Typography sx={{backgroundColor:'#d4d4d4', p: '5px', borderBottom: '1px solid black' }} width={'100%'} fontWeight={600}>Id</Typography>
                 {bills.map((bill: Bill) => {
                     return (
                         <Typography key={bill.id} borderBottom={'2px solid grey'} height={100} sx={{ p: '5px 5px' }} >{bill.id}</Typography>
@@ -41,8 +41,8 @@ const BillingTable = () => {
                 })}
             </Box>
             <Box width={"10%"} display={"flex"} flexDirection={"column"} alignContent={"center"}
-                sx={{ backgroundColor: 'white', color: 'black', p: '0px 0px' }}>
-                <Typography sx={{ p: '5px', borderBottom: '1px solid black' }} width={'100%'} fontWeight={600}>Price</Typography>
+                sx={{ backgroundColor: '#f8f8f8', color: 'black', p: '0px 0px' }}>
+                <Typography sx={{backgroundColor:'#d4d4d4', p: '5px', borderBottom: '1px solid black' }} width={'100%'} fontWeight={600}>Price</Typography>
                 {bills.map((bill: Bill) => {
                     return (
                         <Typography key={bill.id} borderBottom={'2px solid grey'} height={100} sx={{ p: '5px 5px' }}>${bill.price}</Typography>
@@ -50,8 +50,8 @@ const BillingTable = () => {
                 })}
             </Box>
             <Box width={"10%"} display={"flex"} flexDirection={"column"} alignContent={"center"} borderRadius={'0px 5px 5px 0px'}
-                sx={{ backgroundColor: 'white', color: 'black', p: '0px 0px' }}>
-                <Typography sx={{ p: '5px', borderBottom: '1px solid black' }}width={'100%'} fontWeight={600}>Paid</Typography>
+                sx={{ backgroundColor: '#f8f8f8', color: 'black', p: '0px 0px' }}>
+                <Typography borderRadius={'0px 5px 0px 0px'} sx={{backgroundColor:'#d4d4d4', p: '5px', borderBottom: '1px solid black' }}width={'100%'} fontWeight={600}>Paid</Typography>
                 {bills.map((bill: Bill) => {
                     return (
                         <Grid display={"flex"} height={'100%'}>
