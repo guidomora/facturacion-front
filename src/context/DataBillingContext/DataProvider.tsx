@@ -74,8 +74,19 @@ export const DataProvider = ({ children }: DataContextProps) => {
     
     }
 
+    const updateBill = async (id: string, bill: FormState) => {
+        try {
+            const response = await billingApi.put(`/${id}`, bill);
+            const data = response.data;
+            console.log('Bill updated', data);
+            dispatch({ type: 'updateBill', payload: data });
+        } catch (error) {
+            console.error("Error updating a bill", error);
+        }
+    }
+
     return (
-        <DataContext.Provider value={{ ...state, getData, createBill, deleteBill }}>
+        <DataContext.Provider value={{ ...state, getData, createBill, deleteBill, updateBill }}>
             {children}
         </DataContext.Provider>
     )

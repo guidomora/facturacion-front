@@ -54,7 +54,7 @@ const BillingTable = () => {
                 <Typography borderRadius={'0px 5px 0px 0px'} sx={{backgroundColor:'#d4d4d4', p: '5px', borderBottom: '1px solid black' }}width={'100%'} fontWeight={600}>Paid</Typography>
                 {bills.map((bill: Bill) => {
                     return (
-                        <Grid display={"flex"} height={'100%'}>
+                        <Grid key={bill.id} display={"flex"} height={'100%'}>
                             <Typography width={45} key={bill.id} borderBottom={'2px solid grey'} sx={{textAlign:'center', p: '0px 5px 0px 5px' }}>{bill.paid == false ? "no" : 'si'}</Typography>
                             <BillingActions id={bill.id}/>
                         </Grid>

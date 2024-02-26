@@ -1,5 +1,5 @@
 import { Button, Grid, TextField, Typography, RadioGroup, FormControlLabel, Radio } from '@mui/material';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import Modal from 'react-modal';
 import { UiContext } from '../../../context/UibillingContext/UiContext';
 import useForm, { FormState } from '../../../hooks/useForm';
@@ -30,17 +30,39 @@ const bill: FormState = {
 
 
 const BillingModal = () => {
-    const { id, date, description, price, inputChange, formState, selectChange, dateChange } = useForm(bill)
+    const { id, date, description, price, inputChange, formState, selectChange, dateChange, onReset } = useForm(bill)
     const { modalState, closeModal } = useContext(UiContext)
-    const { createBill } = useContext(DataContext)
+    const { createBill, updateBill, bills } = useContext(DataContext)
+    const [checkId, setCheckId] = useState('')
 
 
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        console.log(formState)
-        createBill(formState)
+        if (bills.find(bill => bill.id === id)) {
+            console.log('update')
+            updateBill(id, formState)
+        } else {
+            e.preventDefault()
+            console.log(formState)
+            createBill(formState)
+            onReset()
+        }
+
     }
+
+    const searchId = () => {
+        const existId = bills.find(bill => bill.id === id)
+        setCheckId(existId!.id)
+    }
+    searchId()
+
+    // const submitOrUpdate = (e: React.FormEvent<HTMLFormElement>) => {
+    //     if (id !== '') {
+    //         updateBill(id, bill)
+    //     } else {
+    //         handleSubmit(e)
+    //     }
+    // }
 
 
     return (
@@ -85,7 +107,8 @@ const BillingModal = () => {
                         <TextField
                             name='id'
                             onChange={inputChange}
-                            value={id} label='Billing Id'
+                            value={(id === '') ? '' : bill}
+                            label='Billing Id'
                             focused={false}
                             size='small'
                             fullWidth
@@ -133,14 +156,14 @@ const BillingModal = () => {
                             name="paid"
                             onChange={selectChange}
                         >
-                            <FormControlLabel 
-                            sx={{color: 'black','& .Mui-checked': {color: 'black',}}} 
-                            value="Yes" 
-                            control={<Radio />} label="Yes" />
-                            <FormControlLabel 
-                            sx={{color: 'black','& .Mui-checked': {color: 'black',}}} 
-                            value="No" 
-                            control={<Radio />} label="No" />
+                            <FormControlLabel
+                                sx={{ color: 'black', '& .Mui-checked': { color: 'black', } }}
+                                value="Yes"
+                                control={<Radio />} label="Yes" />
+                            <FormControlLabel
+                                sx={{ color: 'black', '& .Mui-checked': { color: 'black', } }}
+                                value="No"
+                                control={<Radio />} label="No" />
                         </RadioGroup>
                         <Typography sx={{ mt: 3, color: "black" }}>Date</Typography>
                         <DatePicker
