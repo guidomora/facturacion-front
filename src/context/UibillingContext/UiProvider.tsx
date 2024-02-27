@@ -17,6 +17,7 @@ interface UiContextProps {
 
 export const UiProvider = ({children }:UiContextProps) => {
     const [modalState, dispatch] = useReducer(uiReducer, initialState)
+    
 
     const openModal = () => {
         dispatch({type:'openModal'})

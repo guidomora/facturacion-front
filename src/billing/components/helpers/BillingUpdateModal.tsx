@@ -7,6 +7,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import './datePicker.css'
 import { DataContext } from '../../../context/DataBillingContext/DataContext';
+import { UpdateContext } from '../../../context/UibillingContext/UpdateModalContext';
 
 const customStyles = {
     content: {
@@ -29,11 +30,10 @@ const bill: FormState = {
 }
 
 
-const BillingModal = () => {
+const BillingUpdateModal = () => {
     const { id, date, description, price, inputChange, formState, selectChange, dateChange, onReset } = useForm(bill)
-    const { modalState, closeModal } = useContext(UiContext)
     const { createBill, updateBill, bills } = useContext(DataContext)
-    const [checkId, setCheckId] = useState('')
+    const {modalUpdate, closeModal} = useContext(UpdateContext)
 
 
 
@@ -54,7 +54,7 @@ const BillingModal = () => {
         <>
 
             <Modal
-                isOpen={modalState.modalOpen}
+                isOpen={modalUpdate.modalUpdateOpen}
                 onRequestClose={closeModal}
                 style={customStyles}
                 contentLabel="Example Modal"
@@ -67,7 +67,7 @@ const BillingModal = () => {
                 <form onSubmit={handleSubmit}>
 
                     <Grid display={'flex'} flexDirection={'column'} alignItems={'flex-start'} p={2}>
-                        <Typography color={'black'}>New Billing</Typography>
+                        <Typography color={'black'}>Update Billing</Typography>
                         <TextField
                             error={(description!.length < 1) ? true : false}
                             helperText={(description!.length < 1) ? 'Descrption required' : false}
@@ -174,4 +174,4 @@ const BillingModal = () => {
     )
 }
 
-export default BillingModal
+export default BillingUpdateModal

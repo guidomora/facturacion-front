@@ -8,18 +8,22 @@ import { mainTheme } from './theme/mainTheme.ts'
 import { BrowserRouter } from 'react-router-dom'
 import { UiProvider } from './context/UibillingContext/UiProvider.tsx'
 import { DataProvider } from './context/DataBillingContext/DataProvider.tsx'
+import { UiProviderUpdate } from './context/UibillingContext/UpdateProvider.tsx'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <UiProvider>
-      <BrowserRouter>
-        <DataProvider>
-          <ThemeProvider theme={mainTheme}>
-            <CssBaseline />
-            <App />
-          </ThemeProvider>
-        </DataProvider>
-      </BrowserRouter>
+      <UiProviderUpdate>
+        <BrowserRouter>
+          <DataProvider>
+            <ThemeProvider theme={mainTheme}>
+              <CssBaseline />
+              <App />
+            </ThemeProvider>
+          </DataProvider>
+        </BrowserRouter>
+      </UiProviderUpdate>
+
     </UiProvider>
   </React.StrictMode>,
 )
