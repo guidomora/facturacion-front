@@ -36,18 +36,26 @@ interface BillingActionsProps {
 
 const BillingUpdateModal = ( {id, bill} : BillingActionsProps) => {
     const { date, description, price, inputChange, formState, selectChange, dateChange, onReset } = useForm(billForm)
-    const { updateBill, bills } = useContext(DataContext)
+    const { updateBill } = useContext(DataContext)
     const { modalUpdate, closeModal } = useContext(UpdateContext)
 
+    const [localId, setLocalId] = useState(id);
 
-
+    useEffect(() => {
+        setLocalId(id);
+        console.log(localId);
+        
+    }, [id]);
+    
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        updateBill(id, formState);
+        updateBill(localId, formState);
         console.log('update', id);
     }
 
+    
+    
 
     return (
         <>
@@ -93,7 +101,7 @@ const BillingUpdateModal = ( {id, bill} : BillingActionsProps) => {
                         <TextField
                             name='id'
                             onChange={inputChange}
-                            value={id}
+                            value={localId}
                             label='Billing Id'
                             focused={false}
                             size='small'

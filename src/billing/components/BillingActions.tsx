@@ -16,11 +16,7 @@ const BillingActions = ({ id, bill }: BillingActionsProps) => {
     const { deleteBill } = useContext(DataContext)
     const { openModal } = useContext(UpdateContext)
 
-    const abrir = () => {
-        openModal()
-        console.log(id);
-        
-    }
+
 
     return (
         <Grid sx={{ borderBottom: '2px solid grey' }}
@@ -28,13 +24,13 @@ const BillingActions = ({ id, bill }: BillingActionsProps) => {
             display={'flex'}
             flexDirection={'column'}
             justifyContent={'space-around'}>
-            <BillingUpdateModal id={id} bill={bill}/>
             <Button onClick={() => deleteBill(id)} sx={{ height: 30 }} size='small' color='error' variant='outlined'>
                 <DeleteIcon />
             </Button>
-            <Button onClick={abrir} size='small' sx={{ height: 30 }} color='info' variant='outlined'>
+            <Button onClick={openModal} size='small' sx={{ height: 30 }} color='info' variant='outlined'>
                 <ModeEditIcon />
             </Button>
+            <BillingUpdateModal id={id} bill={bill} />
         </Grid>
 
     )
