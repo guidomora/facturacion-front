@@ -38,15 +38,10 @@ const BillingModal = () => {
 
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        if (bills.find(bill => bill.id === id)) {
-            console.log('update')
-            updateBill(id, formState)
-        } else {
             e.preventDefault()
             console.log(formState)
             createBill(formState)
             onReset()
-        }
 
     }
 
@@ -92,7 +87,7 @@ const BillingModal = () => {
                         <TextField
                             name='id'
                             onChange={inputChange}
-                            value={(id === '') ? '' : bill}
+                            value={id}
                             label='Billing Id'
                             focused={false}
                             size='small'

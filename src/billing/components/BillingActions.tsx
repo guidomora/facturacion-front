@@ -14,7 +14,12 @@ interface BillingActionsProps {
 
 const BillingActions = ({ id, bill }: BillingActionsProps) => {
     const { deleteBill } = useContext(DataContext)
-    const { openModal } = useContext(UpdateContext)
+    const { openModal, getId } = useContext(UpdateContext)
+
+    const onOpenModal = () => {
+        getId(id)
+        openModal()
+    }
 
 
 
@@ -27,7 +32,7 @@ const BillingActions = ({ id, bill }: BillingActionsProps) => {
             <Button onClick={() => deleteBill(id)} sx={{ height: 30 }} size='small' color='error' variant='outlined'>
                 <DeleteIcon />
             </Button>
-            <Button onClick={openModal} size='small' sx={{ height: 30 }} color='info' variant='outlined'>
+            <Button onClick={onOpenModal} size='small' sx={{ height: 30 }} color='info' variant='outlined'>
                 <ModeEditIcon />
             </Button>
             <BillingUpdateModal id={id} bill={bill} />

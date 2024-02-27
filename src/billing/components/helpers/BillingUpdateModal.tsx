@@ -39,23 +39,18 @@ const BillingUpdateModal = ( {id, bill} : BillingActionsProps) => {
     const { updateBill } = useContext(DataContext)
     const { modalUpdate, closeModal } = useContext(UpdateContext)
 
-    const [localId, setLocalId] = useState(id);
-
-    useEffect(() => {
-        setLocalId(id);
-        console.log(localId);
-        
-    }, [id]);
     
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        updateBill(localId, formState);
-        console.log('update', id);
+        updateBill(modalUpdate.updateId, formState);
+        console.log('update', modalUpdate.updateId);
     }
 
-    
-    
+    // useEffect(() => {
+    //     console.log(bill);
+        
+    // }, [modalUpdate.updateId])
 
     return (
         <>
@@ -101,13 +96,11 @@ const BillingUpdateModal = ( {id, bill} : BillingActionsProps) => {
                         <TextField
                             name='id'
                             onChange={inputChange}
-                            value={localId}
-                            label='Billing Id'
+                            value={modalUpdate.updateId}
+                            label={modalUpdate.updateId}
                             focused={false}
                             size='small'
                             fullWidth
-                            error={(id!.length < 1) ? true : false}
-                            helperText={(id!.length < 1) ? 'Id required' : false}
                             sx={{
                                 mt: 3, color: "black", '&:hover': {
                                     borderColor: 'black', // Color fijo para el fondo al pasar el ratón
@@ -126,9 +119,11 @@ const BillingUpdateModal = ( {id, bill} : BillingActionsProps) => {
                             type='number'
                             name='price'
                             onChange={inputChange}
-                            value={price} label='Price'
-                            focused={false} size='small'
-                            error={(price! < 0) ? true : false}
+                            value={bill.price} 
+                            label='Price'
+                            focused={false} 
+                            size='small'
+                            error={(price < 0) ? true : false}
                             helperText={(price! < 0) ? 'Price must be positive' : false}
                             fullWidth sx={{
                                 mt: 3, color: "black", '&:hover': {
