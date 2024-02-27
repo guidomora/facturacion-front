@@ -2,7 +2,6 @@ import {  Grid } from "@mui/material"
 import ViewFormat from "./helpers/viewFormat"
 import AddBilling from "./helpers/addBilling"
 import BillingModal from "./helpers/BillingModal"
-import BillingUpdateModal from "./helpers/BillingUpdateModal"
 
 
 
@@ -23,7 +22,6 @@ const BillingNav = () => {
             <ViewFormat />
             <AddBilling />
             <BillingModal />
-            <BillingUpdateModal />
         </Grid>
     )
 }

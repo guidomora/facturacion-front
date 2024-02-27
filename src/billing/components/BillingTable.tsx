@@ -56,9 +56,8 @@ const BillingTable = () => {
                     return (
                         <Grid key={bill.id} display={"flex"} height={'100%'}>
                             <Typography width={45} key={bill.id} borderBottom={'2px solid grey'} sx={{textAlign:'center', p: '0px 5px 0px 5px' }}>{bill.paid == false ? "no" : 'si'}</Typography>
-                            <BillingActions id={bill.id}/>
+                            <BillingActions id={bill.id } bill={bill}/>
                         </Grid>
-
                     )
                 })}
             </Box>

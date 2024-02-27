@@ -1,7 +1,6 @@
 import { Button, Grid, TextField, Typography, RadioGroup, FormControlLabel, Radio } from '@mui/material';
 import { useContext, useEffect, useState } from 'react';
 import Modal from 'react-modal';
-import { UiContext } from '../../../context/UibillingContext/UiContext';
 import useForm, { FormState } from '../../../hooks/useForm';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -21,7 +20,7 @@ const customStyles = {
     },
 };
 
-const bill: FormState = {
+const billForm: FormState = {
     id: '',
     date: '',
     description: '',
@@ -29,26 +28,26 @@ const bill: FormState = {
     paid: false || 'No'
 }
 
+interface BillingActionsProps {
+    bill: FormState;
+    id: string
+}
 
-const BillingUpdateModal = () => {
-    const { id, date, description, price, inputChange, formState, selectChange, dateChange, onReset } = useForm(bill)
-    const { createBill, updateBill, bills } = useContext(DataContext)
-    const {modalUpdate, closeModal} = useContext(UpdateContext)
+
+const BillingUpdateModal = ( {id, bill} : BillingActionsProps) => {
+    const { date, description, price, inputChange, formState, selectChange, dateChange, onReset } = useForm(billForm)
+    const { updateBill, bills } = useContext(DataContext)
+    const { modalUpdate, closeModal } = useContext(UpdateContext)
+
 
 
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        if (bills.find(bill => bill.id === id)) {
-            console.log('update')
-            updateBill(id, formState)
-        } else {
-            e.preventDefault()
-            console.log(formState)
-            createBill(formState)
-            onReset()
-        }
-
+        e.preventDefault();
+        updateBill(id, formState);
+        console.log('update', id);
     }
+
 
     return (
         <>
@@ -73,8 +72,10 @@ const BillingUpdateModal = () => {
                             helperText={(description!.length < 1) ? 'Descrption required' : false}
                             name='description'
                             onChange={inputChange}
-                            value={description} label='Detail'
+                            value={description} 
+                            label={'Descrption'}
                             focused={false} size='small'
+                            // defaultValue={billOne.description}
                             fullWidth sx={{
                                 mt: 3, color: "black", '&:hover': {
                                     borderColor: 'black', // Color fijo para el fondo al pasar el ratón
@@ -92,7 +93,7 @@ const BillingUpdateModal = () => {
                         <TextField
                             name='id'
                             onChange={inputChange}
-                            value={(id === '') ? '' : bill}
+                            value={id}
                             label='Billing Id'
                             focused={false}
                             size='small'
