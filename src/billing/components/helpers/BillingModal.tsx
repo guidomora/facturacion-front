@@ -1,5 +1,5 @@
 import { Button, Grid, TextField, Typography, RadioGroup, FormControlLabel, Radio } from '@mui/material';
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import Modal from 'react-modal';
 import { UiContext } from '../../../context/UibillingContext/UiContext';
 import useForm, { FormState } from '../../../hooks/useForm';
@@ -32,8 +32,7 @@ const bill: FormState = {
 const BillingModal = () => {
     const { id, date, description, price, inputChange, formState, selectChange, dateChange, onReset } = useForm(bill)
     const { modalState, closeModal } = useContext(UiContext)
-    const { createBill, updateBill, bills } = useContext(DataContext)
-    const [checkId, setCheckId] = useState('')
+    const { createBill } = useContext(DataContext)
 
 
 
@@ -150,12 +149,12 @@ const BillingModal = () => {
                             name='date'
                             value={date}
                             dateFormat='dd/MM/yyyy'
-                            selected={new Date}
+                            selected={new Date()}
                             onChange={dateChange}
                             className='date'
 
                         />
-                        <Button disabled={(id!.length < 1 || date === undefined || description!.length < 1 || price! <= 0) ? true : false}
+                        <Button disabled={(id!.length < 1 || date === undefined || description!.length < 1 || price! <= 0 || date === '') ? true : false}
                             type='submit'
                             fullWidth
                             variant="contained"

@@ -28,16 +28,13 @@ const billForm: FormState = {
     paid: false || 'No'
 }
 
-interface BillingActionsProps {
-    bill: FormState;
-    id: string
-}
 
 
-const BillingUpdateModal = ( {id, bill} : BillingActionsProps) => {
-    const { date, description, price, inputChange, formState, selectChange, dateChange, onReset } = useForm(billForm)
-    const { updateBill } = useContext(DataContext)
+const BillingUpdateModal = () => {
+    const { date, description, price, inputChange, formState, selectChange, dateChange,} = useForm(billForm)
+    const { updateBill, bills } = useContext(DataContext)
     const { modalUpdate, closeModal } = useContext(UpdateContext)
+    const [billUpdate, setBillUpdate] = useState<FormState>()
 
     
 
@@ -45,12 +42,16 @@ const BillingUpdateModal = ( {id, bill} : BillingActionsProps) => {
         e.preventDefault();
         updateBill(modalUpdate.updateId, formState);
         console.log('update', modalUpdate.updateId);
+        closeModal()
     }
 
-    // useEffect(() => {
-    //     console.log(bill);
-        
-    // }, [modalUpdate.updateId])
+    useEffect(() => {
+        const setUpBills = () => {
+            const updateBill = bills.find(bill => bill.id === modalUpdate.updateId)
+            setBillUpdate(updateBill)            
+        }
+        setUpBills()
+    }, [modalUpdate.updateId])
 
     return (
         <>
@@ -71,14 +72,11 @@ const BillingUpdateModal = ( {id, bill} : BillingActionsProps) => {
                     <Grid display={'flex'} flexDirection={'column'} alignItems={'flex-start'} p={2}>
                         <Typography color={'black'}>Update Billing</Typography>
                         <TextField
-                            error={(description!.length < 1) ? true : false}
-                            helperText={(description!.length < 1) ? 'Descrption required' : false}
                             name='description'
                             onChange={inputChange}
                             value={description} 
-                            label={'Descrption'}
+                            label={'Description'}
                             focused={false} size='small'
-                            // defaultValue={billOne.description}
                             fullWidth sx={{
                                 mt: 3, color: "black", '&:hover': {
                                     borderColor: 'black', // Color fijo para el fondo al pasar el ratón
@@ -119,7 +117,7 @@ const BillingUpdateModal = ( {id, bill} : BillingActionsProps) => {
                             type='number'
                             name='price'
                             onChange={inputChange}
-                            value={bill.price} 
+                            value={price} 
                             label='Price'
                             focused={false} 
                             size='small'
@@ -164,7 +162,8 @@ const BillingUpdateModal = ( {id, bill} : BillingActionsProps) => {
                             className='date'
 
                         />
-                        <Button disabled={(id!.length < 1 || date === undefined || description!.length < 1 || price! <= 0) ? true : false}
+                        <Button 
+                        // disabled={(id!.length < 1 || date === undefined || description!.length < 1 || price! <= 0) ? true : false}
                             type='submit'
                             fullWidth
                             variant="contained"
