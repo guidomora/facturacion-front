@@ -41,7 +41,7 @@ const BillingModal = () => {
             console.log(formState)
             createBill(formState)
             onReset()
-
+            closeModal()
     }
 
     return (

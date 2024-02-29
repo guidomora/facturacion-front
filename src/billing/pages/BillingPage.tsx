@@ -1,4 +1,5 @@
 import BillingNav from "../components/BillingNav"
+import BillingPagination from "../components/BillingPagination"
 import BillingTable from "../components/BillingTable"
 
 
@@ -7,6 +8,7 @@ const BillingPage = () => {
         <div style={{ color: "white" }}>
             <BillingNav />
             <BillingTable />
+            <BillingPagination />
         </div>
     )
 }
