@@ -6,11 +6,13 @@ import BillingActions from "./BillingActions";
 import CloseIcon from '@mui/icons-material/Close';
 import DoneIcon from '@mui/icons-material/Done';
 
+interface BillingTableProps {
+    bills: Bill[];
+  }
 
 
-
-const BillingTable = () => {
-    const { bills } = useContext(DataContext)
+const BillingTable = ({bills}:BillingTableProps) => {
+    // const { bills } = useContext(DataContext)
 
 
 
