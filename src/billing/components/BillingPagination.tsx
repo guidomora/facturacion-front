@@ -3,52 +3,59 @@ import { DataContext } from '../../context/DataBillingContext/DataContext'
 import { Button, Grid } from '@mui/material'
 import BillingTable from './BillingTable'
 import { Bill } from '../../context/DataBillingContext/DataProvider'
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+
 
 
 
 const BillingPagination = () => {
-    const itemsPerPage = 3
-    const { bills } = useContext(DataContext)
-    const [currentPage, setCurrentPage] = useState(0)
-    const [paginationBills, setPaginationBills] = useState<Bill[]>([])
+  const itemsPerPage = 3
+  const { bills } = useContext(DataContext)
+  const [currentPage, setCurrentPage] = useState(0)
+  const [paginationBills, setPaginationBills] = useState<Bill[]>([])
+  const [disabled, setDisabled] = useState(false)
 
-    const filteredBills = () => {
-      const newBills = bills.slice(currentPage, currentPage + itemsPerPage)
-      setPaginationBills(newBills)
-      
-      
-    }
+  const filteredBills = () => {
+    const newBills = bills.slice(currentPage, currentPage + itemsPerPage)
+    setPaginationBills(newBills)
+  }
+
+  useEffect(() => {
     
-    useEffect(() => {
-      filteredBills()
-    }, [currentPage])
-    
-    const handleNext = () => {
-        const maxPages = Math.ceil(bills.length / itemsPerPage)
-        if (currentPage <= maxPages ) {
-          setCurrentPage(currentPage + itemsPerPage)
-        } 
-        console.log(maxPages, 'maxPages');
-        console.log(currentPage, 'current');
-        console.log(bills);
-        
-        
+    filteredBills()
+  }, [bills, currentPage])
+
+  const handleNext = () => {
+    const maxPages = Math.ceil(bills.length / itemsPerPage);
+    const nextPage = currentPage + itemsPerPage;
+
+    if (nextPage < maxPages * itemsPerPage) {
+      setCurrentPage(nextPage);
+      setDisabled(true)
+    } else if (currentPage < maxPages - 1) {
+      setCurrentPage(maxPages - 1);
     }
 
-    const prevHandler = () => {
-      if (currentPage === 0) return
-      setCurrentPage(currentPage - itemsPerPage)
-      console.log('prev');
-    }
+  }
+
+  const prevHandler = () => {
+    if (currentPage === 0) return
+
+    setCurrentPage(currentPage - itemsPerPage)
+    console.log('prev');
+  }
 
 
   return (
-    <Grid>
+    <Grid display={'flex'} flexDirection={'column'} alignItems={'center'}>
       <Grid>
-        <BillingTable bills={paginationBills}/>
+        <BillingTable bills={paginationBills} />
       </Grid>
-        <Button onClick={prevHandler} color='info' variant='outlined'>{'<'}</Button>
-        <Button onClick={handleNext} color='info' variant='outlined'>{'>'}</Button>
+      <Grid>
+        <Button onClick={prevHandler} sx={{m:'0px 15px', color:'black'}} color='warning' variant='outlined'><ArrowBackIosIcon /></Button>
+        <Button onClick={handleNext} sx={{m:'0px 15px', color:'black'}}  color='warning' variant='outlined'><ArrowForwardIosIcon /></Button>
+      </Grid>
     </Grid>
   )
 }

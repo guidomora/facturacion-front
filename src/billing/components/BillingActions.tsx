@@ -23,7 +23,7 @@ const BillingActions = ({ id }: BillingActionsProps) => {
 
     return (
         <Grid sx={{ borderBottom: '2px solid grey' }}
-            m={0} p={'0px 10px'}
+            m={0} p={'0px 20px'}
             display={'flex'}
             flexDirection={'column'}
             justifyContent={'space-around'}>

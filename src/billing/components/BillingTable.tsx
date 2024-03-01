@@ -54,14 +54,14 @@ const BillingTable = ({bills}:BillingTableProps) => {
                     )
                 })}
             </Box>
-            <Box width={"10%"} display={"flex"} flexDirection={"column"} alignContent={"center"} borderRadius={'0px 5px 5px 0px'}
+            <Box display={"flex"} flexDirection={"column"} alignContent={"center"} borderRadius={'0px 5px 5px 0px'}
                 sx={{ backgroundColor: '#f8f8f8', color: 'black', p: '0px 0px' }}>
                 <Typography borderRadius={'0px 5px 0px 0px'} sx={{backgroundColor:'#d4d4d4', p: '5px', borderBottom: '1px solid black' }}width={'100%'} fontWeight={600}>Paid</Typography>
                 {bills.map((bill: Bill) => {
                     return (
                         <Grid key={bill.id} display={"flex"} height={'100%'}>
-                            <Typography width={45} key={bill.id} borderBottom={'2px solid grey'} 
-                            sx={{textAlign:'center', p: '0px 5px 0px 5px', color:(bill.paid === 'No') ? 'red': 'green' }}>
+                            <Typography width={45} key={bill.id} borderBottom={'2px solid grey'}
+                            sx={{textAlign:'center', p: '5px 5px 0px 5px', color:(bill.paid === 'No') ? 'red': 'green' }}>
                                 {bill.paid === 'No' ? <CloseIcon /> : <DoneIcon />}
                             </Typography>
                             <BillingActions id={bill.id }/>
