@@ -17,7 +17,7 @@ const BillingTable = ({bills}:BillingTableProps) => {
 
 
     return (
-        <Grid width={'100%'} p={7} display={"flex"} justifyContent={"center"}>
+        <Grid width={'100vw'} p={7} display={"flex"} justifyContent={"center"}>
             <Box width={"10%"} display={"flex"} flexDirection={"column"} alignContent={"center"} borderRadius={'5px 0px 0px 5px'}
                 sx={{ backgroundColor: '#f8f8f8', color: 'black', p: '0px 0px' }}>
                 <Typography borderRadius={'5px 0px 0px 0px'} sx={{backgroundColor:'#d4d4d4', p: '5px 10px', borderBottom: '1px solid black' }} width={'100%'} fontWeight={600}>Date</Typography>
