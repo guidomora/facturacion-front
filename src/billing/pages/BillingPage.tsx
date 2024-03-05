@@ -7,7 +7,6 @@ const BillingPage = () => {
     return (
         <div style={{ color: "white" }}>
             <BillingNav />
-            {/* <BillingTable /> */}
             <BillingPagination />
         </div>
     )

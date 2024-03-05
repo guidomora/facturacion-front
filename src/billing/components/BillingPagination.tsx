@@ -5,6 +5,7 @@ import BillingTable from './BillingTable'
 import { Bill } from '../../context/DataBillingContext/DataProvider'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import BillingSearch from './BillingSearch'
 
 
 
@@ -50,6 +51,7 @@ const BillingPagination = () => {
   return (
     <Grid display={'flex'} flexDirection={'column'} alignItems={'center'}>
       <Grid>
+        <BillingSearch />
         <BillingTable bills={paginationBills} />
       </Grid>
       <Grid>
