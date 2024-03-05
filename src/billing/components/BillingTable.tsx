@@ -1,6 +1,4 @@
 import { Box, Grid, Typography } from "@mui/material"
-import { useContext } from 'react';
-import { DataContext } from "../../context/DataBillingContext/DataContext"
 import { Bill } from "../../context/DataBillingContext/DataProvider"
 import BillingActions from "./BillingActions";
 import CloseIcon from '@mui/icons-material/Close';
@@ -12,9 +10,6 @@ interface BillingTableProps {
 
 
 const BillingTable = ({bills}:BillingTableProps) => {
-    // const { bills } = useContext(DataContext)
-
-
 
     return (
         <Grid width={'100vw'} p={7} display={"flex"} justifyContent={"center"}>

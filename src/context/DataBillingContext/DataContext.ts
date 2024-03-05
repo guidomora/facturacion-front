@@ -7,6 +7,7 @@ interface DataContextProps {
   createBill: (bill: Bill) => void;
   deleteBill: (id: string) => void;
   updateBill: (id: string, bill: Bill) => void;
+  getBillsByIdDescriptionPrice: (searchParam: string | number) => void;
 }
 
 export const DataContext = createContext<DataContextProps>({} as DataContextProps);

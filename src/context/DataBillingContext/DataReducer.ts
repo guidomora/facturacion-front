@@ -7,6 +7,7 @@ type ActionModal =
 | { type: 'createBill', payload: FormState }
 | { type: 'deleteBill', payload: string }
 | { type: 'updateBill', payload: FormState }
+| { type: 'getBillsByIdDescriptionPrice', payload: Bill[] }
 
 
 export const dataReducer = (state: DbState, action: ActionModal) => {
@@ -30,6 +31,11 @@ export const dataReducer = (state: DbState, action: ActionModal) => {
             return {
                 ...state,
                 bills: state.bills.map(bill => bill.id === action.payload.id ? action.payload : bill)
+            }
+        case 'getBillsByIdDescriptionPrice':
+            return {
+                ...state,
+                bills: action.payload
             }
         default:
             return state

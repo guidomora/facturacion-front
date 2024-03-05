@@ -49,6 +49,17 @@ export const DataProvider = ({ children }: DataContextProps) => {
         }
     }
 
+    const getBillsByIdDescriptionPrice = async (searchParam: string | number) => {
+        try {
+            const response = await billingApi.get(`/search/${searchParam}`);
+            const data = response.data;
+            dispatch({ type: 'getBillsByIdDescriptionPrice', payload: data });
+        } catch (error) {
+            console.error("Error al obtener datos de la API", error);
+        }
+    
+    }
+
     useEffect(() => {
         getData()
     }, [state])
@@ -86,7 +97,7 @@ export const DataProvider = ({ children }: DataContextProps) => {
     }
 
     return (
-        <DataContext.Provider value={{ ...state, getData, createBill, deleteBill, updateBill }}>
+        <DataContext.Provider value={{ ...state, getData, createBill, deleteBill, updateBill, getBillsByIdDescriptionPrice }}>
             {children}
         </DataContext.Provider>
     )
