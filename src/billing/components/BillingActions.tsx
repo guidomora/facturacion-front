@@ -13,6 +13,7 @@ interface BillingActionsProps {
 const BillingActions = ({ id }: BillingActionsProps) => {
     const { deleteBill } = useContext(DataContext)
     const { openModal, getId } = useContext(UpdateContext)
+    
 
     const onOpenModal = () => {
         getId(id)

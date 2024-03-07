@@ -7,7 +7,7 @@ const BillingSearch = () => {
         <Typography variant='h5' sx={{color:'black', fontWeight:600}}>Bills</Typography>
         <TextField
         id="input-with-icon-textfield"
-        label="Search Bills"
+        label="Search by description, price or Id"
         variant="outlined"
         size='small'
         focused={false}

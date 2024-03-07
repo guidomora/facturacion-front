@@ -7,6 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import './datePicker.css'
 import { DataContext } from '../../../context/DataBillingContext/DataContext';
 import { UpdateContext } from '../../../context/UibillingContext/UpdateModalContext';
+import { UiContext } from '../../../context/UibillingContext/UiContext';
 
 const customStyles = {
     content: {
@@ -32,11 +33,14 @@ const billForm: FormState = {
 
 const BillingUpdateModal = () => {
     const { date, description, price, inputChange, formState, selectChange, dateChange,} = useForm(billForm)
-    const { updateBill, bills } = useContext(DataContext)
+    const { updateBill, bills, getData } = useContext(DataContext)
     const { modalUpdate, closeModal } = useContext(UpdateContext)
+    const { modalState } = useContext(UiContext)
     const [billUpdate, setBillUpdate] = useState<FormState>()
 
-    
+    useEffect(() => {
+        getData()
+    } ,[modalState, modalUpdate])
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();

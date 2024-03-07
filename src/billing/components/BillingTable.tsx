@@ -11,6 +11,8 @@ interface BillingTableProps {
 
 const BillingTable = ({bills}:BillingTableProps) => {
 
+    
+
     return (
         <Grid width={'100vw'} p={7} display={"flex"} justifyContent={"center"}>
             <Box width={"10%"} display={"flex"} flexDirection={"column"} alignContent={"center"} borderRadius={'5px 0px 0px 5px'}

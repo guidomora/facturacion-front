@@ -35,7 +35,6 @@ const BillingModal = () => {
     const { createBill } = useContext(DataContext)
 
 
-
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
             e.preventDefault()
             console.log(formState)

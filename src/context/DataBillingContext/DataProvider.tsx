@@ -49,6 +49,7 @@ export const DataProvider = ({ children }: DataContextProps) => {
         }
     }
 
+    // finder
     const getBillsByIdDescriptionPrice = async (searchParam: string | number) => {
         try {
             const response = await billingApi.get(`/search/${searchParam}`);
@@ -59,10 +60,6 @@ export const DataProvider = ({ children }: DataContextProps) => {
         }
     
     }
-
-    useEffect(() => {
-        getData()
-    }, [state])
 
     const createBill = async (bill: FormState) => {
         try {
