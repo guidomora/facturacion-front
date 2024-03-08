@@ -1,17 +1,30 @@
-import { Button, Grid, InputAdornment, TextField } from '@mui/material'
+import { Button, Grid, InputAdornment, TextField, Typography } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search';
 import { Link } from 'react-router-dom';
 import BillingTable from './BillingTable';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import { DataContext } from '../../context/DataBillingContext/DataContext';
+import useFormSearch from '../../hooks/useFormSearch';
+
+
+
 
 const BillingSearch = () => {
   const { bills, getBillsByIdDescriptionPrice } = useContext(DataContext)
-  const [search, setSearch] = useState('')
+  const { formState, inputChange, search } = useFormSearch({ search: '' })
+
+
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    if (formState.search === '') return
+    getBillsByIdDescriptionPrice(formState.search)
+  }
 
   useEffect(() => {
-    getBillsByIdDescriptionPrice('test')
-  } , [search])
+    if (formState.search === '') return
+    getBillsByIdDescriptionPrice(formState.search)
+  } , [ formState.search])
 
   return (
     <Grid display={'flex'} flexDirection={'column'}>
@@ -19,13 +32,16 @@ const BillingSearch = () => {
         <Link to={'/'} style={{ textDecoration: 'none', color: 'black' }}>
           <Button sx={{ m: '0px 15px', color: 'black', textTransform: 'none' }} color='info' variant='outlined'>View all</Button>
         </Link>
-        <form>
+        <form onSubmit={handleSubmit}>
           <TextField
             id="input-with-icon-textfield"
             label="Search by description, price or Id"
             variant="outlined"
             size='small'
             focused={false}
+            name='search'
+            value={search}
+            onChange={inputChange}
             sx={{
               color: "black", '&:hover': {
                 borderColor: 'black', // Color fijo para el fondo al pasar el ratón
@@ -51,7 +67,12 @@ const BillingSearch = () => {
           <Button sx={{ m: '0px 15px', color: 'black', textTransform: 'none' }} color='info' variant='outlined'>Search</Button>
         </form>
       </Grid>
+      {(bills.length === 0) ? <Typography variant='h5' 
+      sx={{ textAlign: 'center', color: 'black', fontWeight: 600, mt: 35 }}>
+        No bills found...
+      </Typography> :
         <BillingTable bills={bills} />
+      }
     </Grid>
   )
 }
