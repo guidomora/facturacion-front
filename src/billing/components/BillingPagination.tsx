@@ -65,6 +65,11 @@ const BillingPagination = () => {
       <Grid>
         <Grid display={'flex'} justifyContent={'space-evenly'} alignItems={'center'} pt={7}>
           <Typography variant='h5' sx={{ color: 'black', fontWeight: 600 }}>Bills</Typography>
+          <Link to={'/charts'} style={{ textDecoration: 'none', color: 'black' }}>
+            <Button sx={{ m: '0px 15px', color: 'black', textTransform: 'none' }} color='info' variant='outlined'>
+              Charts
+            </Button>
+          </Link>
           <Link to={'/search'} style={{ textDecoration: 'none', color: 'black' }}>
             <Button sx={{ m: '0px 15px', color: 'black', textTransform: 'none' }} color='info' variant='outlined'>
               Search bill

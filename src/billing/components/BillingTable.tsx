@@ -6,17 +6,17 @@ import DoneIcon from '@mui/icons-material/Done';
 
 interface BillingTableProps {
     bills: Bill[];
-  }
+}
 
 
-const BillingTable = ({bills}:BillingTableProps) => {
+const BillingTable = ({ bills }: BillingTableProps) => {
 
-    
+
 
     return (
         <Grid width={'100vw'} p={7} display={"flex"} justifyContent={"center"}>
             <Box width={"10%"} display={"flex"} flexDirection={"column"} alignContent={"center"} borderRadius={'5px 0px 0px 5px'}
-                sx={{ backgroundColor: '#f8f8f8', color: 'black', p: '0px 0px' }}>
+                sx={{ backgroundColor: '#f8f8f8', color: 'black', p: '0px 0px', borderLeft:'2px solid grey', borderTop:'2px solid grey'}}>
                 <Typography borderRadius={'5px 0px 0px 0px'} sx={{backgroundColor:'#d4d4d4', p: '5px 10px', borderBottom: '1px solid black' }} width={'100%'} fontWeight={600}>Date</Typography>
                 {bills.map((bill: Bill) => {
                     return (
@@ -25,7 +25,7 @@ const BillingTable = ({bills}:BillingTableProps) => {
                 })}
             </Box>
             <Box width={"60%"} display={"flex"} flexDirection={"column"} alignContent={"center"}
-                sx={{ backgroundColor: '#f8f8f8', color: 'black', p: '0px 0px' }}>
+                sx={{ backgroundColor: '#f8f8f8', color: 'black', p: '0px 0px', borderTop:'2px solid grey' }}>
                 <Typography sx={{backgroundColor:'#d4d4d4', p: '5px', borderBottom: '1px solid black' }} width={'100%'} fontWeight={600}>Detail</Typography>
                 {bills.map((bill: Bill) => {
                     return (
@@ -34,7 +34,7 @@ const BillingTable = ({bills}:BillingTableProps) => {
                 })}
             </Box>
             <Box width={"5%"} display={"flex"} flexDirection={"column"} alignContent={"center"}
-                sx={{ backgroundColor: '#f8f8f8', color: 'black', p: '0px 0px' }}>
+                sx={{ backgroundColor: '#f8f8f8', color: 'black', p: '0px 0px', borderTop:'2px solid grey' }}>
                 <Typography sx={{backgroundColor:'#d4d4d4', p: '5px', borderBottom: '1px solid black' }} width={'100%'} fontWeight={600}>Id</Typography>
                 {bills.map((bill: Bill) => {
                     return (
@@ -43,7 +43,7 @@ const BillingTable = ({bills}:BillingTableProps) => {
                 })}
             </Box>
             <Box width={"10%"} display={"flex"} flexDirection={"column"} alignContent={"center"}
-                sx={{ backgroundColor: '#f8f8f8', color: 'black', p: '0px 0px' }}>
+                sx={{ backgroundColor: '#f8f8f8', color: 'black', p: '0px 0px', borderTop:'2px solid grey' }}>
                 <Typography sx={{backgroundColor:'#d4d4d4', p: '5px', borderBottom: '1px solid black' }} width={'100%'} fontWeight={600}>Price</Typography>
                 {bills.map((bill: Bill) => {
                     return (
@@ -52,7 +52,7 @@ const BillingTable = ({bills}:BillingTableProps) => {
                 })}
             </Box>
             <Box display={"flex"} flexDirection={"column"} alignContent={"center"} borderRadius={'0px 5px 5px 0px'}
-                sx={{ backgroundColor: '#f8f8f8', color: 'black', p: '0px 0px' }}>
+                sx={{ backgroundColor: '#f8f8f8', color: 'black', p: '0px 0px', borderRight:'2px solid grey', borderTop:'2px solid grey' }}>
                 <Typography borderRadius={'0px 5px 0px 0px'} sx={{backgroundColor:'#d4d4d4', p: '5px', borderBottom: '1px solid black' }}width={'100%'} fontWeight={600}>Paid</Typography>
                 {bills.map((bill: Bill) => {
                     return (

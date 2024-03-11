@@ -36,7 +36,7 @@ const BillingUpdateModal = () => {
     const { updateBill, bills, getData } = useContext(DataContext)
     const { modalUpdate, closeModal } = useContext(UpdateContext)
     const { modalState } = useContext(UiContext)
-    const [billUpdate, setBillUpdate] = useState<FormState>()
+    // const [billUpdate, setBillUpdate] = useState<FormState>()
 
     useEffect(() => {
         getData()
@@ -49,13 +49,13 @@ const BillingUpdateModal = () => {
         closeModal()
     }
 
-    useEffect(() => {
-        const setUpBills = () => {
-            const updateBill = bills.find(bill => bill.id === modalUpdate.updateId)
-            setBillUpdate(updateBill)            
-        }
-        setUpBills()
-    }, [modalUpdate.updateId])
+    // useEffect(() => {
+    //     const setUpBills = () => {
+    //         const updateBill = bills.find(bill => bill.id === modalUpdate.updateId)
+    //         setBillUpdate(updateBill)            
+    //     }
+    //     setUpBills()
+    // }, [modalUpdate.updateId])
 
     return (
         <>
@@ -78,7 +78,8 @@ const BillingUpdateModal = () => {
                         <TextField
                             name='description'
                             onChange={inputChange}
-                            value={description} 
+                            value={description}
+                            // defaultValue={billUpdate?.description}
                             label={'Description'}
                             focused={false} size='small'
                             fullWidth sx={{
@@ -99,7 +100,7 @@ const BillingUpdateModal = () => {
                             name='id'
                             onChange={inputChange}
                             value={modalUpdate.updateId}
-                            label={modalUpdate.updateId}
+                            label='id'
                             focused={false}
                             size='small'
                             fullWidth
