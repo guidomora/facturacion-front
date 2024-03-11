@@ -15,6 +15,12 @@ export interface Bill {
 
 export interface DbState {
     bills: Bill[];
+    payments: Payments[];
+}
+
+export interface Payments {
+    month: string;
+    total: number;
 }
 
 const initialState: DbState = {
@@ -24,6 +30,10 @@ const initialState: DbState = {
         id: '',
         price: 0,
         paid: false,
+    }],
+    payments: [{
+        month: '',
+        total: 0
     }]
 }
 
@@ -58,7 +68,7 @@ export const DataProvider = ({ children }: DataContextProps) => {
         } catch (error) {
             console.error("Error al obtener datos de la API", error);
         }
-    
+
     }
 
     const createBill = async (bill: FormState) => {
@@ -79,7 +89,7 @@ export const DataProvider = ({ children }: DataContextProps) => {
         } catch (error) {
             console.error("Error deleting a bill", error);
         }
-    
+
     }
 
     const updateBill = async (id: string, bill: FormState) => {
@@ -93,8 +103,27 @@ export const DataProvider = ({ children }: DataContextProps) => {
         }
     }
 
+    const getPaymentByYear = async (year: number) => {
+
+        try {
+            const response = await billingApi.get(`/year/${year}`);
+            const data = response.data;
+            dispatch({ type: 'getPaymentByYear', payload: data });
+        } catch (error) {
+            console.error("Error al obtener datos de la API", error);
+        }
+    }
+
     return (
-        <DataContext.Provider value={{ ...state, getData, createBill, deleteBill, updateBill, getBillsByIdDescriptionPrice }}>
+        <DataContext.Provider value={{
+            ...state,
+            getData,
+            createBill,
+            deleteBill,
+            updateBill,
+            getBillsByIdDescriptionPrice,
+            getPaymentByYear
+        }}>
             {children}
         </DataContext.Provider>
     )

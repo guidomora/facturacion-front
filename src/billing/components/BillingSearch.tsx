@@ -1,6 +1,5 @@
 import { Button, Grid, InputAdornment, TextField, Typography } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search';
-import { Link } from 'react-router-dom';
 import BillingTable from './BillingTable';
 import { useContext, useEffect } from 'react';
 import { DataContext } from '../../context/DataBillingContext/DataContext';
@@ -21,17 +20,19 @@ const BillingSearch = () => {
     getBillsByIdDescriptionPrice(formState.search)
   }
 
+  const submitButton = () => {
+    if (formState.search === '') return
+    getBillsByIdDescriptionPrice(formState.search)
+  }
+
   useEffect(() => {
     if (formState.search === '') return
     getBillsByIdDescriptionPrice(formState.search)
   } , [ formState.search])
 
   return (
-    <Grid display={'flex'} flexDirection={'column'}>
+    <Grid display={'flex'} flexDirection={'column'} mt={15}>
       <Grid display={'flex'} justifyContent={'space-around'} alignItems={'center'} pt={5}>
-        <Link to={'/'} style={{ textDecoration: 'none', color: 'black' }}>
-          <Button sx={{ m: '0px 15px', color: 'black', textTransform: 'none' }} color='info' variant='outlined'>View all</Button>
-        </Link>
         <form onSubmit={handleSubmit}>
           <TextField
             id="input-with-icon-textfield"
@@ -64,7 +65,7 @@ const BillingSearch = () => {
               ),
             }}
           />
-          <Button sx={{ m: '0px 15px', color: 'black', textTransform: 'none' }} color='info' variant='outlined'>Search</Button>
+          <Button onClick={submitButton} sx={{ m: '0px 15px', color: 'black', textTransform: 'none' }} color='info' variant='outlined'>Search</Button>
         </form>
       </Grid>
       {(bills.length === 0) ? <Typography variant='h5' 

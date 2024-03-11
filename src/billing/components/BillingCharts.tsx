@@ -1,16 +1,29 @@
 import { Grid, Box, Typography } from '@mui/material'
 import { useContext, useEffect } from 'react'
-import { Bar, VictoryAxis, VictoryBar, VictoryChart, VictoryPie } from 'victory'
+import { VictoryAxis, VictoryBar, VictoryChart, VictoryPie } from 'victory'
 import { DataContext } from '../../context/DataBillingContext/DataContext'
 
 const BillingCharts = () => {
-    const { bills, getData } = useContext(DataContext)
+    const { bills, getData, getPaymentByYear, payments } = useContext(DataContext)
     const totalUnpaid = bills.filter((bill) => bill.paid === 'No').length
     const totalPaid = bills.filter((bill) => bill.paid === 'Yes').length
+
+    const splitByMonth = () => {
+        let months: string[] = []
+        bills.forEach((bill) => {
+            const month = bill.date.split('/')[1]
+            months.push(month)
+        })
+        console.log(months);
+        return months
+    }
 
 
 
     useEffect(() => {
+        getPaymentByYear(2023)
+        console.log(payments);
+
         getData()
     }, [])
 
@@ -49,26 +62,27 @@ const BillingCharts = () => {
                             // dataComponent={
                             //     <Bar events={{ onMouseOver: handleMouseOver }} />
                             // }
-                            // que la fuente sea de 22px
+                            labels={({ datum }) => `$${datum.y}`}
                             style={{
                                 data: { fill: "#0288d1", width: 50 },
-                                labels: { fontSize: '22px' }
+                                labels: { fontSize: '32px' }
                             }
                             }
-                            data={[
-                                { x: 'January', y: 2 },
-                                { x: 'February', y: 3 },
-                                { x: 'March', y: 5 },
-                                { x: 'April', y: 4 },
-                                { x: 'May', y: 6 },
-                                { x: 'June', y: 7 },
-                                { x: 'July', y: 8 },
-                                { x: 'August', y: 9 },
-                                { x: 'September', y: 10 },
-                                { x: 'October', y: 11 },
-                                { x: 'November', y: 12 },
-                                { x: 'Dicember', y: 13 }
-                            ]}
+                            // data={[
+                            //     { x: 'January', y: 1 },
+                            //     { x: 'February', y: 2 },
+                            //     { x: 'March', y: 3 },
+                            //     { x: 'April', y: 4 },
+                            //     { x: 'May', y: 5 },
+                            //     { x: 'June', y: 6 },
+                            //     { x: 'July', y: 7 },
+                            //     { x: 'August', y: 8 },
+                            //     { x: 'September', y: 9 },
+                            //     { x: 'October', y: 10 },
+                            //     { x: 'November', y: 11 },
+                            //     { x: 'Dicember', y: 12 }
+                            // ]}
+                            data={payments.map((payment) => ({ x: `${payment.month}/2024`, y: payment.total }))}
                         />
                         <VictoryAxis
                             style={{
@@ -78,11 +92,11 @@ const BillingCharts = () => {
                         />
 
                         {/* Configurar el eje Y */}
-                        <VictoryAxis
-                            dependentAxis
+                        <VictoryAxis    
+                            dependentAxis={false}
                             style={{
-                                axisLabel: { fontSize: '25px', padding: 40 },
-                                tickLabels: { fontSize: '25px' }
+                                axisLabel: { fontSize: '25px' },
+                                tickLabels: { fontSize: '25px'}
                             }}
                         />
                     </VictoryChart>

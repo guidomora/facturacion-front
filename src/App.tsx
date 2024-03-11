@@ -1,12 +1,15 @@
 
 import './App.css'
+import MainLayout from './layout/MainLayout'
 import AppRouter from './router/AppRouter'
 
 function App() {
 
   return (
     <>
-      <AppRouter />
+      <MainLayout>
+        <AppRouter />
+      </MainLayout>
     </>
   )
 }

@@ -63,25 +63,12 @@ const BillingPagination = () => {
   return (
     <Grid display={'flex'} flexDirection={'column'} alignItems={'center'}>
       <Grid>
-        <Grid display={'flex'} justifyContent={'space-evenly'} alignItems={'center'} pt={7}>
-          <Typography variant='h5' sx={{ color: 'black', fontWeight: 600 }}>Bills</Typography>
-          <Link to={'/charts'} style={{ textDecoration: 'none', color: 'black' }}>
-            <Button sx={{ m: '0px 15px', color: 'black', textTransform: 'none' }} color='info' variant='outlined'>
-              Charts
-            </Button>
-          </Link>
-          <Link to={'/search'} style={{ textDecoration: 'none', color: 'black' }}>
-            <Button sx={{ m: '0px 15px', color: 'black', textTransform: 'none' }} color='info' variant='outlined'>
-              Search bill
-            </Button>
-          </Link>
-        </Grid>
         <BillingTable bills={paginationBills} /> {/* le pasamos las bills que queremos mostrar */}
       </Grid>
       <Grid display={'flex'} alignItems={'center'}>
-        <Button onClick={prevHandler} sx={{ m: '0px 15px', color: 'black' }} color='warning' variant='outlined'><ArrowBackIosIcon /></Button>
+        <Button onClick={prevHandler} sx={{ m: '0px 15px', color: 'black' }} color='info' variant='outlined'><ArrowBackIosIcon /></Button>
         <Typography color={'black'}>{counter}</Typography>
-        <Button onClick={handleNext} sx={{ m: '0px 15px', color: 'black' }} color='warning' variant='outlined'><ArrowForwardIosIcon /></Button>
+        <Button onClick={handleNext} sx={{ m: '0px 15px', color: 'black' }} color='info' variant='outlined'><ArrowForwardIosIcon /></Button>
       </Grid>
     </Grid>
   )
