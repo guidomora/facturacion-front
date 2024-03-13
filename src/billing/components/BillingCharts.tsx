@@ -1,18 +1,27 @@
-import { Grid, Box, Typography, FormControl, InputLabel, MenuItem, Select } from '@mui/material'
+import { Grid, Box, Typography, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material'
 import { useContext, useEffect, useState } from 'react'
 import { VictoryAxis, VictoryBar, VictoryChart, VictoryPie } from 'victory'
 import { DataContext } from '../../context/DataBillingContext/DataContext'
-import { Bill } from '../../context/DataBillingContext/DataProvider'
+import { UiContext } from '../../context/UibillingContext/UiContext'
+import BillingUnpaid from './BillingUnpaid'
+
+
 
 const BillingCharts = () => {
     const { bills, getData, getPaymentByYear, payments } = useContext(DataContext)
-    const [selectedYears, setSelectedYears] = useState<string[]>([])
+    const {closeModal} = useContext(UiContext)
+    const [avalibleYears, setAvalibleYears] = useState<string[]>([])
     const totalUnpaid = bills.filter((bill) => bill.paid === 'No').length
     const totalPaid = bills.filter((bill) => bill.paid === 'Yes').length
-    let activeYears: string[] = []
+    const [selectedYear, setSelectedYear] = useState('2024')
+    
+    const inputChange = ({ target}: SelectChangeEvent<string> ) => {
+        setSelectedYear(target.value)
+      };
 
+    // Gets all the years from the bills
     const splitByYear = () => {
-        let uniqueYears: Set<string> = new Set();
+        let uniqueYears: Set<string> = new Set(); // Set to avoid duplicates
 
         bills.forEach((bill) => {
             const year = bill.date.split('/')[2];
@@ -20,27 +29,27 @@ const BillingCharts = () => {
         });
 
         const yearsArray = Array.from(uniqueYears);
-        setSelectedYears(yearsArray);
-        activeYears = yearsArray
+        setAvalibleYears(yearsArray);
     };
 
 
 
     useEffect(() => {
-        getData()
-        getPaymentByYear(2023)
-        console.log(activeYears);
+        getData();
+        getPaymentByYear(Number(selectedYear)); // sends the year to get the payments  
+    }, [selectedYear, closeModal]);
 
-        // setTimeout(() => {
-        splitByYear()
-        // }, 1000);
-
-    }, [])
-
+    useEffect(() => {
+        if (bills.length > 0) {
+            splitByYear();
+        }
+    }, [bills]);
+    
 
 
 
     return (
+        // Donut chart
         <Grid mt={10} p={5} display={'flex'} flexDirection={'column'} alignItems={'center'}>
             <Box p={5} height={300} width={'70%'} display={'flex'} justifyContent={'space-around'} alignItems={'center'}
                 boxShadow={7}
@@ -49,11 +58,10 @@ const BillingCharts = () => {
                 <Box height={300}>
                     <VictoryPie
                         colorScale={["#0288d1", "#ff0831"]}
-                        style={{ labels: { fill: "white" } }}
+                        style={{ labels: { fill: "black", fontSize:'22px' } }}
                         innerRadius={100}
                         labelRadius={120}
                         labels={({ datum }) => `${datum.y} bills`}
-                        //   labelComponent={'hola'}
                         data={[
                             { x: 'Paid', y: totalPaid },
                             { x: 'Unpaid', y: totalUnpaid },
@@ -61,23 +69,26 @@ const BillingCharts = () => {
                     />
                 </Box>
             </Box>
+
+            {/* Unpaid bills */}
+            <BillingUnpaid />
+
+            {/* Bar chart */}
             <Box mt={10} p={5} height={500} width={'70%'} display={'flex'} flexDirection={'column'} justifyContent={'space-around'} alignItems={'center'}
                 boxShadow={7}
                 sx={{ borderRadius: 5 }}>
-                <Box display={'flex'} justifyContent={'space-around'} width={'80%'}>
+                <Box display={'flex'} justifyContent={'space-between'} width={'80%'}>
                     <Typography textAlign={'center'} fontWeight={600} maxWidth={450} variant='h4' color='black'>Total income each month</Typography>
-                    <FormControl>
-                        <InputLabel color='info' >Year</InputLabel>
+                    <FormControl size="small">
+                        <InputLabel  color='info' >Select year</InputLabel>
                         <Select
-                            size="small"
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            // value={first}
-                            label="Month"
+                            value={selectedYear}
                             fullWidth
+                            label="Select year"
                             color='info'
-                            // onChange={handleChange}
+                            onChange={inputChange}
                             sx={{
+                                width:150,
                                 backgroundColor: '#ffffff',
                                 '&:hover': {
                                     borderColor: 'black', // Color fijo para el fondo al pasar el ratón
@@ -93,11 +104,10 @@ const BillingCharts = () => {
                                 },
                             }}
                         >
-                            {activeYears.map(year => 
-                                <MenuItem>{year}</MenuItem>
+                            {/* Maps the years that are avalible  */}
+                            {avalibleYears.map((year, index) => 
+                                <MenuItem key={index} value={year}>{year}</MenuItem>
                             )}
-    
-    {/* <MenuItem value={year}>{year}</MenuItem> */}
                         </Select>
                     </FormControl>
                 </Box>
@@ -113,7 +123,7 @@ const BillingCharts = () => {
                                 labels: { fontSize: '32px' }
                             }
                             }
-                            data={payments.map((payment) => ({ x: `${payment.month}/2024`, y: payment.total }))}
+                            data={payments.map((payment) => ({ x: `${payment.month}/${selectedYear}`, y: payment.total }))}
                         />
                         <VictoryAxis
                             style={{
