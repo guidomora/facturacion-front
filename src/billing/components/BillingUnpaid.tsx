@@ -20,9 +20,6 @@ const BillingUnpaid = () => {
                     <Typography color='black' display={'flex'}>Total Unpaid: </Typography>
                     <Typography ml={1} fontWeight={500} color="error">${amountUnpaid}</Typography>
                 </Box>
-
-
-
                 <BillingTable bills={totalUnpaid} />
             </Box>
         </Grid>

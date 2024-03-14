@@ -172,7 +172,7 @@ const BillingUpdateModal = () => {
                             type='submit'
                             fullWidth
                             variant="contained"
-                            sx={{ backgroundColor: "black", color: "white", textTransform: "none", mt: 3 }}>Add</Button>
+                            sx={{ backgroundColor: "black", color: "white", textTransform: "none", mt: 3 }}>Update</Button>
                     </Grid>
                 </form>
 

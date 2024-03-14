@@ -4,20 +4,22 @@ import { VictoryAxis, VictoryBar, VictoryChart, VictoryPie } from 'victory'
 import { DataContext } from '../../context/DataBillingContext/DataContext'
 import { UiContext } from '../../context/UibillingContext/UiContext'
 import BillingUnpaid from './BillingUnpaid'
+import SquareIcon from '@mui/icons-material/Square';
+import { Square } from '@mui/icons-material'
 
 
 
 const BillingCharts = () => {
     const { bills, getData, getPaymentByYear, payments } = useContext(DataContext)
-    const {closeModal} = useContext(UiContext)
+    const { closeModal } = useContext(UiContext)
     const [avalibleYears, setAvalibleYears] = useState<string[]>([])
     const totalUnpaid = bills.filter((bill) => bill.paid === 'No').length
     const totalPaid = bills.filter((bill) => bill.paid === 'Yes').length
     const [selectedYear, setSelectedYear] = useState('2024')
-    
-    const inputChange = ({ target}: SelectChangeEvent<string> ) => {
+
+    const inputChange = ({ target }: SelectChangeEvent<string>) => {
         setSelectedYear(target.value)
-      };
+    };
 
     // Gets all the years from the bills
     const splitByYear = () => {
@@ -44,7 +46,7 @@ const BillingCharts = () => {
             splitByYear();
         }
     }, [bills]);
-    
+
 
 
 
@@ -54,11 +56,21 @@ const BillingCharts = () => {
             <Box p={5} height={300} width={'70%'} display={'flex'} justifyContent={'space-around'} alignItems={'center'}
                 boxShadow={7}
                 sx={{ borderRadius: 5 }}>
-                <Typography fontWeight={600} width={350} variant='h4' color='black'>Paid / Unpaid Bills</Typography>
+                <Box display={'flex'} flexDirection={'column'} justifyContent={'space-evenly'} height={'100%'}>
+                    <Typography fontWeight={600} width={350} variant='h4' color='black'>Paid / Unpaid Bills</Typography>
+                    <Box display={'flex'} alignItems={'center'} justifyContent={'space-around'}>
+                        <Typography display={'flex'} alignItems={'center'} color={'black'}> Unpaid
+                            <SquareIcon color='error' sx={{ fontSize: 30, ml:1 }} />
+                        </Typography>
+                        <Typography display={'flex'} alignItems={'center'} color={'black'}> Paid
+                            <SquareIcon color='info' sx={{ fontSize: 30, ml:1 }} />
+                        </Typography>
+                    </Box>
+                </Box>
                 <Box height={300}>
                     <VictoryPie
                         colorScale={["#0288d1", "#ff0831"]}
-                        style={{ labels: { fill: "black", fontSize:'22px' } }}
+                        style={{ labels: { fill: "black", fontSize: '22px' } }}
                         innerRadius={100}
                         labelRadius={120}
                         labels={({ datum }) => `${datum.y} bills`}
@@ -80,7 +92,7 @@ const BillingCharts = () => {
                 <Box display={'flex'} justifyContent={'space-between'} width={'80%'}>
                     <Typography textAlign={'center'} fontWeight={600} maxWidth={450} variant='h4' color='black'>Total income each month</Typography>
                     <FormControl size="small">
-                        <InputLabel  color='info' >Select year</InputLabel>
+                        <InputLabel color='info' >Select year</InputLabel>
                         <Select
                             value={selectedYear}
                             fullWidth
@@ -88,7 +100,7 @@ const BillingCharts = () => {
                             color='info'
                             onChange={inputChange}
                             sx={{
-                                width:150,
+                                width: 150,
                                 backgroundColor: '#ffffff',
                                 '&:hover': {
                                     borderColor: 'black', // Color fijo para el fondo al pasar el ratón
@@ -105,7 +117,7 @@ const BillingCharts = () => {
                             }}
                         >
                             {/* Maps the years that are avalible  */}
-                            {avalibleYears.map((year, index) => 
+                            {avalibleYears.map((year, index) =>
                                 <MenuItem key={index} value={year}>{year}</MenuItem>
                             )}
                         </Select>
