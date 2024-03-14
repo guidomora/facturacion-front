@@ -1,9 +1,10 @@
 import { Button, Grid, InputAdornment, TextField, Typography } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search';
 import BillingTable from './BillingTable';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { DataContext } from '../../context/DataBillingContext/DataContext';
 import useFormSearch from '../../hooks/useFormSearch';
+import { Bill } from '../../context/DataBillingContext/DataProvider';
 
 
 
@@ -14,10 +15,13 @@ const BillingSearch = () => {
 
 
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  
+  
+  const handleSubmit =  (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (formState.search === '') return
     getBillsByIdDescriptionPrice(formState.search)
+    
   }
 
   const submitButton = () => {
@@ -25,10 +29,7 @@ const BillingSearch = () => {
     getBillsByIdDescriptionPrice(formState.search)
   }
 
-  useEffect(() => {
-    if (formState.search === '') return
-    getBillsByIdDescriptionPrice(formState.search)
-  } , [ formState.search])
+
 
   return (
     <Grid display={'flex'} flexDirection={'column'} mt={15}>
