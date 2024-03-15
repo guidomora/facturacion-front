@@ -13,20 +13,13 @@ const BillingSearch = () => {
   const { bills, getBillsByIdDescriptionPrice } = useContext(DataContext)
   const { formState, inputChange, search } = useFormSearch({ search: '' })
 
-
-
-  
   
   const handleSubmit =  (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (formState.search === '') return
     getBillsByIdDescriptionPrice(formState.search)
+    console.log('bills', bills);
     
-  }
-
-  const submitButton = () => {
-    if (formState.search === '') return
-    getBillsByIdDescriptionPrice(formState.search)
   }
 
 
@@ -66,7 +59,7 @@ const BillingSearch = () => {
               ),
             }}
           />
-          <Button onClick={submitButton} sx={{ m: '0px 15px', color: 'black', textTransform: 'none' }} color='info' variant='outlined'>Search</Button>
+          <Button type='submit' sx={{ m: '0px 15px', color: 'black', textTransform: 'none' }} color='info' variant='outlined'>Search</Button>
         </form>
       </Grid>
       {(bills.length === 0) ? <Typography variant='h5' 

@@ -12,15 +12,13 @@ const useFormSearch = (initialForm: FormStateSearch) => {
   const inputChange = ({ target}: React.ChangeEvent<HTMLInputElement> ) => {
     const { name, value } = target;
     const numericValue = value === '' ? '' : isNaN(Number(value)) ? value : Number(value);
-    setFormState({
-      ...formState,
+    setFormState((prev) => ({
+      ...prev,
       [name]: numericValue,
-    });
+    }));
+    
   };
-
-
-
-
+  
 
   const onReset = () => {
     setFormState(initialForm)
