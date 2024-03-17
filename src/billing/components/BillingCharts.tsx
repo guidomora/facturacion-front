@@ -3,9 +3,9 @@ import { useContext, useEffect, useState } from 'react'
 import { VictoryAxis, VictoryBar, VictoryChart, VictoryPie } from 'victory'
 import { DataContext } from '../../context/DataBillingContext/DataContext'
 import { UiContext } from '../../context/UibillingContext/UiContext'
-import BillingUnpaid from './BillingUnpaid'
+import BillingUnpaid from './charts/BillingUnpaid'
 import SquareIcon from '@mui/icons-material/Square';
-import { Square } from '@mui/icons-material'
+
 
 
 
@@ -53,44 +53,43 @@ const BillingCharts = () => {
     return (
         // Donut chart
         <Grid mt={10} p={5} display={'flex'} flexDirection={'column'} alignItems={'center'}>
-            <Box p={5} height={300} width={'70%'} display={'flex'} justifyContent={'space-around'} alignItems={'center'}
-                boxShadow={7}
+            <Box p={5} width={'100%'} display={'flex'} justifyContent={'space-around'} alignItems={'center'}
                 sx={{ borderRadius: 5 }}>
-                <Box display={'flex'} flexDirection={'column'} justifyContent={'space-evenly'} height={'100%'}>
-                    <Typography fontWeight={600} width={350} variant='h4' color='black'>Paid / Unpaid Bills</Typography>
+                <Box display={'flex'} flexDirection={'column'} justifyContent={'space-around'} height={500} boxShadow={7} sx={{ borderRadius: 5 }}>
+                    <Typography fontSize={25} textAlign={'center'} fontWeight={600} width={350} variant='h4' color='black'>Paid / Unpaid Bills</Typography>
                     <Box display={'flex'} alignItems={'center'} justifyContent={'space-around'}>
                         <Typography display={'flex'} alignItems={'center'} color={'black'}> Unpaid
-                            <SquareIcon color='error' sx={{ fontSize: 30, ml:1 }} />
+                            <SquareIcon color='error' sx={{ fontSize: 30, ml: 1 }} />
                         </Typography>
                         <Typography display={'flex'} alignItems={'center'} color={'black'}> Paid
-                            <SquareIcon color='info' sx={{ fontSize: 30, ml:1 }} />
+                            <SquareIcon color='info' sx={{ fontSize: 30, ml: 1 }} />
                         </Typography>
                     </Box>
+                    <Box height={300}>
+                        <VictoryPie
+                            colorScale={["#0288d1", "#ff0831"]}
+                            style={{ labels: { fill: "black", fontSize: '22px' } }}
+                            innerRadius={100}
+                            labelRadius={120}
+                            labels={({ datum }) => `${datum.y} bills`}
+                            data={[
+                                { x: 'Paid', y: totalPaid },
+                                { x: 'Unpaid', y: totalUnpaid },
+                            ]}
+                        />
+                    </Box>
                 </Box>
-                <Box height={300}>
-                    <VictoryPie
-                        colorScale={["#0288d1", "#ff0831"]}
-                        style={{ labels: { fill: "black", fontSize: '22px' } }}
-                        innerRadius={100}
-                        labelRadius={120}
-                        labels={({ datum }) => `${datum.y} bills`}
-                        data={[
-                            { x: 'Paid', y: totalPaid },
-                            { x: 'Unpaid', y: totalUnpaid },
-                        ]}
-                    />
-                </Box>
+                {/* Unpaid bills */}
+                <BillingUnpaid />
             </Box>
 
-            {/* Unpaid bills */}
-            <BillingUnpaid />
 
             {/* Bar chart */}
             <Box mt={10} p={5} height={500} width={'70%'} display={'flex'} flexDirection={'column'} justifyContent={'space-around'} alignItems={'center'}
                 boxShadow={7}
                 sx={{ borderRadius: 5 }}>
                 <Box display={'flex'} justifyContent={'space-between'} width={'80%'}>
-                    <Typography textAlign={'center'} fontWeight={600} maxWidth={450} variant='h4' color='black'>Total income each month</Typography>
+                    <Typography textAlign={'center'} fontWeight={600} maxWidth={650} variant='h4' color='black'>Total income from all bills per month</Typography>
                     <FormControl size="small">
                         <InputLabel color='info' >Select year</InputLabel>
                         <Select
