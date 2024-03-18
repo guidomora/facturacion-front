@@ -9,6 +9,7 @@ type ActionModal =
 | { type: 'updateBill', payload: FormState }
 | { type: 'getBillsByIdDescriptionPrice', payload: Bill[] }
 | { type: 'getPaymentByYear', payload: Payments[] }
+| { type: 'getTotalByIdAndYear', payload: Payments[]}
 
 
 export const dataReducer = (state: DbState, action: ActionModal) => {
@@ -42,6 +43,11 @@ export const dataReducer = (state: DbState, action: ActionModal) => {
             return {
                 ...state,
                 payments: action.payload
+            }
+        case 'getTotalByIdAndYear':
+            return {
+                ...state,
+                secondPayments: action.payload
             }
         default:
             return state

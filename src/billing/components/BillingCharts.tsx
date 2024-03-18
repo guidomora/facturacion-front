@@ -5,6 +5,7 @@ import { DataContext } from '../../context/DataBillingContext/DataContext'
 import { UiContext } from '../../context/UibillingContext/UiContext'
 import BillingUnpaid from './charts/BillingUnpaid'
 import SquareIcon from '@mui/icons-material/Square';
+import BillingTotalById from './charts/BillingTotalById'
 
 
 
@@ -25,13 +26,15 @@ const BillingCharts = () => {
     const splitByYear = () => {
         let uniqueYears: Set<string> = new Set(); // Set to avoid duplicates
 
+        // gets the year from the date
         bills.forEach((bill) => {
             const year = bill.date.split('/')[2];
             uniqueYears.add(year);
         });
 
+        // converts the set to an array
         const yearsArray = Array.from(uniqueYears);
-        setAvalibleYears(yearsArray);
+        setAvalibleYears(yearsArray); // sets the years to the state
     };
 
 
@@ -82,7 +85,9 @@ const BillingCharts = () => {
                 {/* Unpaid bills */}
                 <BillingUnpaid />
             </Box>
-
+            
+            {/* Bar by id */}
+            <BillingTotalById />
 
             {/* Bar chart */}
             <Box mt={10} p={5} height={500} width={'70%'} display={'flex'} flexDirection={'column'} justifyContent={'space-around'} alignItems={'center'}
