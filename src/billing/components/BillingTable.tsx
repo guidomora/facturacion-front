@@ -3,6 +3,8 @@ import { Bill } from "../../context/DataBillingContext/DataProvider"
 import BillingActions from "./BillingActions";
 import CloseIcon from '@mui/icons-material/Close';
 import DoneIcon from '@mui/icons-material/Done';
+import { UiContext } from "../../context/UibillingContext/UiContext";
+import { useContext } from "react";
 
 interface BillingTableProps {
     bills: Bill[];
@@ -10,14 +12,16 @@ interface BillingTableProps {
 
 
 const BillingTable = ({ bills }: BillingTableProps) => {
-
+    const {modalState} = useContext(UiContext) 
 
 
     return (
         <Grid width={'100%'} p={7} display={"flex"} justifyContent={"center"}>
             <Box minWidth={150} display={"flex"} flexDirection={"column"} alignContent={"center"} borderRadius={'5px 0px 0px 5px'}
                 sx={{ backgroundColor: '#f8f8f8', color: 'black', p: '0px 0px', borderLeft:'2px solid grey', borderRight:'1px solid grey', borderTop:'2px solid grey'}}>
-                <Typography borderRadius={'5px 0px 0px 0px'} sx={{backgroundColor:'#d4d4d4', p: '5px 10px', borderBottom: '1px solid black' }} width={'100%'} fontWeight={600}>Date</Typography>
+                <Typography borderRadius={'5px 0px 0px 0px'} sx={{backgroundColor:'#d4d4d4', p: '5px 10px', borderBottom: '1px solid black' }} width={'100%'} fontWeight={600}>
+                    {(modalState.english === false) ? 'Date' : 'Fecha'}
+                </Typography>
                 {bills.map((bill: Bill) => {
                     return (
                         <Typography key={bill.id} borderBottom={'2px solid grey'} height={70} sx={{ p: '5px 10px' }}>{bill.date}</Typography>
@@ -26,7 +30,9 @@ const BillingTable = ({ bills }: BillingTableProps) => {
             </Box>
             <Box width={"60%"} display={"flex"} flexDirection={"column"} alignContent={"center"}
                 sx={{ backgroundColor: '#f8f8f8', color: 'black', p: '0px 0px', borderTop:'2px solid grey' }}>
-                <Typography sx={{backgroundColor:'#d4d4d4', p: '5px', borderBottom: '1px solid black' }} width={'100%'} fontWeight={600}>Detail</Typography>
+                <Typography sx={{backgroundColor:'#d4d4d4', p: '5px', borderBottom: '1px solid black' }} width={'100%'} fontWeight={600}>
+                    {(modalState.english === false) ? 'Description' : 'Descripción'}
+                </Typography>
                 {bills.map((bill: Bill) => {
                     return (
                         <Typography key={bill.id} borderBottom={'2px solid grey'} height={70} sx={{ p: '5px 5px' }}>{bill.description}</Typography>
@@ -44,7 +50,9 @@ const BillingTable = ({ bills }: BillingTableProps) => {
             </Box>
             <Box minWidth={100} display={"flex"} flexDirection={"column"} alignContent={"center"}
                 sx={{ backgroundColor: '#f8f8f8', color: 'black', p: '0px 0px', borderTop:'2px solid grey' }}>
-                <Typography sx={{backgroundColor:'#d4d4d4', p: '5px', borderBottom: '1px solid black' }} width={'100%'} fontWeight={600}>Price</Typography>
+                <Typography sx={{backgroundColor:'#d4d4d4', p: '5px', borderBottom: '1px solid black' }} width={'100%'} fontWeight={600}>
+                    {(modalState.english === false) ? 'Price' : 'Precio'}
+                </Typography>
                 {bills.map((bill: Bill) => {
                     return (
                         <Typography key={bill.id} borderBottom={'2px solid grey'} height={70} sx={{ p: '5px 5px' }}>${bill.price}</Typography>
@@ -53,7 +61,9 @@ const BillingTable = ({ bills }: BillingTableProps) => {
             </Box>
             <Box display={"flex"} flexDirection={"column"} alignContent={"center"} borderRadius={'0px 5px 5px 0px'}
                 sx={{ backgroundColor: '#f8f8f8', color: 'black', p: '0px 0px', borderRight:'2px solid grey', borderTop:'2px solid grey' }}>
-                <Typography borderRadius={'0px 5px 0px 0px'} sx={{backgroundColor:'#d4d4d4', p: '5px', borderBottom: '1px solid black' }}width={'100%'} fontWeight={600}>Paid</Typography>
+                <Typography borderRadius={'0px 5px 0px 0px'} sx={{backgroundColor:'#d4d4d4', p: '5px', borderBottom: '1px solid black' }}width={'100%'} fontWeight={600}>
+                    {(modalState.english === false) ? 'Paid' : 'Pagado'}
+                </Typography>
                 {bills.map((bill: Bill) => {
                     return (
                         <Grid key={bill.id} display={"flex"} height={'100%'}>

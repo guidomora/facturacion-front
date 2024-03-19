@@ -3,6 +3,7 @@ import { InitialStateModal } from "./UiProvider";
 
 interface UiContextProps {
   modalState: InitialStateModal;
+  changeLanguage: (state:boolean) => void;
   openModal: () => void;
   closeModal: () => void;
 }

@@ -12,7 +12,7 @@ import BillingTotalById from './charts/BillingTotalById'
 
 const BillingCharts = () => {
     const { bills, getData, getPaymentByYear, payments } = useContext(DataContext)
-    const { closeModal } = useContext(UiContext)
+    const { closeModal, modalState } = useContext(UiContext)
     const [avalibleYears, setAvalibleYears] = useState<string[]>([])
     const totalUnpaid = bills.filter((bill) => bill.paid === 'No').length
     const totalPaid = bills.filter((bill) => bill.paid === 'Yes').length
@@ -59,12 +59,16 @@ const BillingCharts = () => {
             <Box p={5} width={'100%'} display={'flex'} justifyContent={'space-around'} alignItems={'center'}
                 sx={{ borderRadius: 5 }}>
                 <Box display={'flex'} flexDirection={'column'} justifyContent={'space-around'} height={500} boxShadow={7} sx={{ borderRadius: 5 }}>
-                    <Typography fontSize={25} textAlign={'center'} fontWeight={600} width={350} variant='h4' color='black'>Paid / Unpaid Bills</Typography>
+                    <Typography fontSize={25} textAlign={'center'} fontWeight={600} width={350} variant='h4' color='black'>
+                        {(modalState.english === false) ? 'Paid / Unpaid Bills' : 'Facturas pagadas / no pagadas'}
+                    </Typography>
                     <Box display={'flex'} alignItems={'center'} justifyContent={'space-around'}>
-                        <Typography display={'flex'} alignItems={'center'} color={'black'}> Unpaid
+                        <Typography display={'flex'} alignItems={'center'} color={'black'}>
+                            {(modalState.english === false) ? 'Unpaid' : 'No pagadas'}
                             <SquareIcon color='error' sx={{ fontSize: 30, ml: 1 }} />
                         </Typography>
-                        <Typography display={'flex'} alignItems={'center'} color={'black'}> Paid
+                        <Typography display={'flex'} alignItems={'center'} color={'black'}>
+                            {(modalState.english === false) ? 'Paid' : 'Pagadas'}
                             <SquareIcon color='info' sx={{ fontSize: 30, ml: 1 }} />
                         </Typography>
                     </Box>
@@ -74,7 +78,7 @@ const BillingCharts = () => {
                             style={{ labels: { fill: "black", fontSize: '22px' } }}
                             innerRadius={100}
                             labelRadius={120}
-                            labels={({ datum }) => `${datum.y} bills`}
+                            labels={({ datum }) => `${datum.y} ${(modalState.english === false) ? 'bills' : 'facturas'} `}
                             data={[
                                 { x: 'Paid', y: totalPaid },
                                 { x: 'Unpaid', y: totalUnpaid },
@@ -94,13 +98,17 @@ const BillingCharts = () => {
                 boxShadow={7}
                 sx={{ borderRadius: 5 }}>
                 <Box display={'flex'} justifyContent={'space-between'} width={'80%'}>
-                    <Typography textAlign={'center'} fontWeight={600} maxWidth={650} variant='h4' color='black'>Total income from all bills per month</Typography>
+                    <Typography textAlign={'center'} fontWeight={600} maxWidth={650} variant='h4' color='black'>
+                        {(modalState.english === false) ? 'Payments by month' : 'Pagos por mes'}
+                    </Typography>
                     <FormControl size="small">
-                        <InputLabel color='info' >Select year</InputLabel>
+                        <InputLabel color='info' >
+                            {(modalState.english === false) ? 'Select year' : 'Selecciona año'}
+                        </InputLabel>
                         <Select
                             value={selectedYear}
                             fullWidth
-                            label="Select year"
+                            label={(modalState.english === false) ? 'Select year' : 'Selecciona año'}
                             color='info'
                             onChange={inputChange}
                             sx={{

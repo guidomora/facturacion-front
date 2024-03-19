@@ -4,10 +4,12 @@ import { uiReducer } from './UiReducer';
 
 const initialState: InitialStateModal = {
     modalOpen: false,
+    english: false
 }
 
 export interface InitialStateModal {
     modalOpen: boolean;
+    english: boolean;
 }
 
 interface UiContextProps {
@@ -27,8 +29,12 @@ export const UiProvider = ({children }:UiContextProps) => {
         dispatch({type:'closeModal'})
     }
 
+    const changeLanguage = (state:boolean) => {
+        dispatch({type:'changeLanguage', payload:state})
+    }
+
     return (
-        <UiContext.Provider value={{modalState, openModal, closeModal}}>
+        <UiContext.Provider value={{modalState, openModal, closeModal, changeLanguage}}>
         {children}
         </UiContext.Provider>   
     );

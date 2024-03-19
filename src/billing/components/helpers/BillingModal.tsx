@@ -35,6 +35,12 @@ const BillingModal = () => {
     const { createBill } = useContext(DataContext)
 
 
+
+    const helperText = (text:string) => {
+        return (modalState.english === false) ? `${text} is required` : `El ${text} es requerido`
+    }
+
+
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
             e.preventDefault()
             console.log(formState)
@@ -60,10 +66,12 @@ const BillingModal = () => {
                 <form onSubmit={handleSubmit}>
 
                     <Grid display={'flex'} flexDirection={'column'} alignItems={'flex-start'} p={2}>
-                        <Typography color={'black'}>New Billing</Typography>
+                        <Typography color={'black'}>
+                            {(modalState.english === false) ? 'New bill' : 'Nueva factura'}
+                        </Typography>
                         <TextField
                             error={(description!.length < 1) ? true : false}
-                            helperText={(description!.length < 1) ? 'Descrption required' : false}
+                            helperText={(description!.length < 1) ? helperText(modalState.english === false ? 'Description' : 'descripcion') : false}
                             name='description'
                             onChange={inputChange}
                             value={description} label='Detail'
@@ -91,7 +99,7 @@ const BillingModal = () => {
                             size='small'
                             fullWidth
                             error={(id!.length < 1) ? true : false}
-                            helperText={(id!.length < 1) ? 'Id required' : false}
+                            helperText={(id!.length < 1) ? helperText('Id') : false}
                             sx={{
                                 mt: 3, color: "black", '&:hover': {
                                     borderColor: 'black', // Color fijo para el fondo al pasar el ratón
@@ -110,10 +118,10 @@ const BillingModal = () => {
                             type='number'
                             name='price'
                             onChange={inputChange}
-                            value={price} label='Price'
+                            value={price} label={(modalState.english === false) ? 'Price' : 'Precio'}
                             focused={false} size='small'
-                            error={(price! < 0) ? true : false}
-                            helperText={(price! < 0) ? 'Price must be positive' : false}
+                            error={(price! == 0) ? true : false}
+                            helperText={(price! == 0) ? helperText(modalState.english === false ? 'Price' : 'precio') : false}
                             fullWidth sx={{
                                 mt: 3, color: "black", '&:hover': {
                                     borderColor: 'black', // Color fijo para el fondo al pasar el ratón
@@ -128,7 +136,9 @@ const BillingModal = () => {
                                     color: 'black',
                                 },
                             }} />
-                        <Typography sx={{ mt: 3, color: "black" }}>Paid</Typography>
+                        <Typography sx={{ mt: 3, color: "black" }}>
+                            {(modalState.english === false) ? 'Paid' : 'Pagado'}
+                        </Typography>
                         <RadioGroup
                             defaultValue="No"
                             name="paid"
@@ -143,7 +153,9 @@ const BillingModal = () => {
                                 value="No"
                                 control={<Radio />} label="No" />
                         </RadioGroup>
-                        <Typography sx={{ mt: 3, color: "black" }}>Date</Typography>
+                        <Typography sx={{ mt: 3, color: "black" }}>
+                            {(modalState.english === false) ? 'Date' : 'Fecha'}
+                        </Typography>
                         <DatePicker
                             name='date'
                             value={date}
@@ -157,7 +169,9 @@ const BillingModal = () => {
                             type='submit'
                             fullWidth
                             variant="contained"
-                            sx={{ backgroundColor: "black", color: "white", textTransform: "none", mt: 3 }}>Add</Button>
+                            sx={{ backgroundColor: "black", color: "white", textTransform: "none", mt: 3 }}>
+                                {(modalState.english === false) ? 'Create' : 'Crear'}
+                        </Button>
                     </Grid>
                 </form>
 
