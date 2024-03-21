@@ -23,6 +23,7 @@
     "react-dom": "^18.2.0",
     "react-modal": "^3.16.1",
     "react-router-dom": "^6.22.1",
+    "toastify-js": "^1.12.0",
     "victory-chart": "^36.9.1"
   },
   "devDependencies": {
@@ -30,6 +31,7 @@
     "@types/react-datepicker": "^6.0.1",
     "@types/react-dom": "^18.2.19",
     "@types/react-modal": "^3.16.3",
+    "@types/toastify-js": "^1.12.3",
     "@types/victory": "^35.0.0",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",

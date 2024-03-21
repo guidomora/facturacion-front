@@ -4,12 +4,12 @@ import { UiContext } from '../../../context/UibillingContext/UiContext';
 
 
 const AddBilling = () => {
-const { openModal } = useContext(UiContext)
+const { openModal, modalState } = useContext(UiContext)
 
 
   return (
-    <Button onClick={openModal}  variant="contained" sx={{backgroundColor:"white", textTransform:"none"}}>
-        Add Billing
+    <Button onClick={openModal}  variant="outlined" color="info" sx={{color:'black', textTransform:"none"}}>
+        {(modalState.english === false) ? 'Add Bill' : 'Agregar Factura'}
     </Button>
   )
 }

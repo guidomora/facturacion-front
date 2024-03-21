@@ -1,5 +1,4 @@
 import BillingNav from "../billing/components/BillingNav"
-import BillingView from "../billing/components/BillingView"
 
 interface MainLayoutProps {
     children: React.ReactNode
@@ -9,7 +8,7 @@ interface MainLayoutProps {
 const MainLayout = ({children}:MainLayoutProps) => {
   return (
     <>
-        <BillingView />
+        {/* <BillingView /> */}
         <BillingNav />
         <main>
             {children}

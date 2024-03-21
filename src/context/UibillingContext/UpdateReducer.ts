@@ -1,10 +1,10 @@
-import { InitialStateModalUpdate } from "./UpdateProvider"
+import { InitialStateModalUpdate, UpdateIdBill } from "./UpdateProvider"
 
 
 type ActionModal =
     | { type: 'openUpdateModal' }
     | { type: 'closeUpdateModal' }
-    | { type: 'getId', payload: string }
+    | { type: 'getId', payload: UpdateIdBill }
 
 
 
@@ -23,7 +23,7 @@ export const updateReducer = (state: InitialStateModalUpdate, action: ActionModa
         case 'getId':
             return {
                 ...state,
-                updateId: action.payload
+                updateId: action.payload,
             }
         default:
             return state

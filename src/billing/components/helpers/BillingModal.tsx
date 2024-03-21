@@ -118,7 +118,8 @@ const BillingModal = () => {
                             type='number'
                             name='price'
                             onChange={inputChange}
-                            value={price} label={(modalState.english === false) ? 'Price' : 'Precio'}
+                            value={price} 
+                            label={(modalState.english === false) ? 'Price' : 'Precio'}
                             focused={false} size='small'
                             error={(price! == 0) ? true : false}
                             helperText={(price! == 0) ? helperText(modalState.english === false ? 'Price' : 'precio') : false}

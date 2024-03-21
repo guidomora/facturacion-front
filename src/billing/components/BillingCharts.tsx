@@ -98,8 +98,8 @@ const BillingCharts = () => {
                 boxShadow={7}
                 sx={{ borderRadius: 5 }}>
                 <Box display={'flex'} justifyContent={'space-between'} width={'80%'}>
-                    <Typography textAlign={'center'} fontWeight={600} maxWidth={650} variant='h4' color='black'>
-                        {(modalState.english === false) ? 'Payments by month' : 'Pagos por mes'}
+                    <Typography fontSize={25} textAlign={'center'} fontWeight={600} maxWidth={650} variant='h4' color='black'>
+                        {(modalState.english === false) ? 'Total payments by month' : 'Pagos totales por mes'}
                     </Typography>
                     <FormControl size="small">
                         <InputLabel color='info' >

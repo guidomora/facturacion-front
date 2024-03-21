@@ -71,7 +71,7 @@ const BillingTable = ({ bills }: BillingTableProps) => {
                             sx={{textAlign:'center', p: '5px 5px 0px 5px', color:(bill.paid === 'No') ? 'red': 'green' }}>
                                 {bill.paid === 'No' ? <CloseIcon /> : <DoneIcon />}
                             </Typography>
-                            <BillingActions id={bill.id }/>
+                            <BillingActions id={bill.id } date={bill.date} paid={bill.paid} description={bill.description} price={bill.price} />
                         </Grid>
                     )
                 })}

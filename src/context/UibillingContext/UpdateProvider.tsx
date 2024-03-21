@@ -5,12 +5,26 @@ import { updateReducer } from './UpdateReducer';
 
 const initialStateUpdate: InitialStateModalUpdate = {
     modalUpdateOpen: false,
-    updateId:''
+    updateId:{
+        id: '',
+        date: '',
+        description: '',
+        price: 0,
+        paid: ''
+    },
 }
 
 export interface InitialStateModalUpdate {
     modalUpdateOpen: boolean;
-    updateId: string;
+    updateId: UpdateIdBill;
+}
+
+export interface UpdateIdBill {
+    id: string;
+    date: string;
+    description: string;
+    price: number;
+    paid: string | boolean;
 }
 
 interface UpdateContextProps {
@@ -30,8 +44,8 @@ export const UiProviderUpdate = ({children }:UpdateContextProps) => {
         dispatch({type:'closeUpdateModal'})
     }
 
-    const getId = (id: string) => {
-        dispatch({type:'getId', payload: id})
+    const getId = (updateId:UpdateIdBill) => {
+        dispatch({type:'getId', payload:updateId})
     }
 
     return (

@@ -50,7 +50,7 @@ const BillingTotalById = () => {
   }, [])
 
   return (
-    <Grid>
+    <Grid width={'70%'}>
       <Box p={5} width={'100%'} display={'flex'} flexDirection={'column'} justifyContent={'space-around'} alignItems={'center'}
         boxShadow={7} sx={{ borderRadius: 5 }}>
         <Box display={"flex"} justifyContent={"space-evenly"} width={'100%'} alignItems={"center"}>
@@ -142,7 +142,7 @@ const BillingTotalById = () => {
                 labels: { fontSize: '32px' }
               }
               }
-              data={secondPayments.map((payment) => ({ x: `${payment.month}/2024`, y: payment.total }))}
+              data={secondPayments.map((payment) => ({ x: `${payment.month}/${selectedYear}`, y: payment.total }))}
             />
             <VictoryAxis
               style={{
