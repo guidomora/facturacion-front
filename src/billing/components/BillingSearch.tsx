@@ -4,21 +4,32 @@ import BillingTable from './BillingTable';
 import { useContext, useEffect, useState } from 'react';
 import { DataContext } from '../../context/DataBillingContext/DataContext';
 import useFormSearch from '../../hooks/useFormSearch';
-import { Bill } from '../../context/DataBillingContext/DataProvider';
+
 
 
 
 
 const BillingSearch = () => {
   const { bills, getBillsByIdDescriptionPrice } = useContext(DataContext)
-  const { formState, inputChange, search } = useFormSearch({ search: '' })
+  const [formValues, setFormValues] = useState({ search: '' });
+  // const { formState, inputChange, search } = useFormSearch({ search: '' })
 
+  const inputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    // Actualiza los valores del formulario cuando cambian los campos
+    setFormValues(prevState => ({ // toma los valores anteriores y los actualiza
+        ...prevState,
+        [name]: value
+    }));
+};
   
   const handleSubmit =  (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if (formState.search === '') return
-    getBillsByIdDescriptionPrice(formState.search)
+    if (formValues.search === '') return
+    getBillsByIdDescriptionPrice(formValues.search)
     console.log('bills', bills);
+    console.log('formValues', formValues.search);
+    
     
   }
 
@@ -35,7 +46,7 @@ const BillingSearch = () => {
             size='small'
             focused={false}
             name='search'
-            value={search}
+            value={formValues.search}
             onChange={inputChange}
             sx={{
               color: "black", '&:hover': {

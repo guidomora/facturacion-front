@@ -6,6 +6,8 @@ import AddBilling from './helpers/addBilling'
 import BillingModal from './helpers/BillingModal'
 import SearchIcon from '@mui/icons-material/Search';
 import BarChartIcon from '@mui/icons-material/BarChart';
+import TranslateIcon from '@mui/icons-material/Translate';
+import HomeIcon from '@mui/icons-material/Home';
 
 const BillingNav = () => {
     const {modalState, changeLanguage} = useContext(UiContext)            
@@ -19,11 +21,11 @@ const BillingNav = () => {
             <AddBilling />
             <Button onClick={() => changeLanguage((modalState.english == false) ? true : false ) }
             sx={{ m: '0px 15px', color: 'black', textTransform: 'none' }} color='info' variant='outlined'>
-                {(modalState.english == false) ? 'Spanish' : 'English'}
+                {(modalState.english == false) ? 'Spanish' : 'English'} <TranslateIcon sx={{ml:1, height:20}}/>
             </Button>
             <Link to={'/'} style={{ textDecoration: 'none', color: 'black' }}>
                 <Button sx={{ m: '0px 15px', color: 'black', textTransform: 'none' }} color='info' variant='outlined'>
-                    {(modalState.english == false) ? 'Home' : 'Inicio'}
+                    {(modalState.english == false) ? 'Home' : 'Inicio'} <HomeIcon sx={{ml:1, height:20}}/>
                 </Button>
             </Link>
             <Link to={'/charts'} style={{ textDecoration: 'none', color: 'black' }}>
