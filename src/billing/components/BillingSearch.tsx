@@ -1,9 +1,10 @@
 import { Button, Grid, InputAdornment, TextField, Typography } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search';
 import BillingTable from './BillingTable';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { DataContext } from '../../context/DataBillingContext/DataContext';
-import useFormSearch from '../../hooks/useFormSearch';
+import { UiContext } from '../../context/UibillingContext/UiContext';
+
 
 
 
@@ -12,7 +13,7 @@ import useFormSearch from '../../hooks/useFormSearch';
 const BillingSearch = () => {
   const { bills, getBillsByIdDescriptionPrice } = useContext(DataContext)
   const [formValues, setFormValues] = useState({ search: '' });
-  // const { formState, inputChange, search } = useFormSearch({ search: '' })
+  const { modalState } = useContext(UiContext)
 
   const inputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -27,10 +28,7 @@ const BillingSearch = () => {
     e.preventDefault()
     if (formValues.search === '') return
     getBillsByIdDescriptionPrice(formValues.search)
-    console.log('bills', bills);
-    console.log('formValues', formValues.search);
-    
-    
+    console.log('bills', bills)
   }
 
 
@@ -41,7 +39,7 @@ const BillingSearch = () => {
         <form onSubmit={handleSubmit}>
           <TextField
             id="input-with-icon-textfield"
-            label="Search by description, price or Id"
+            label={(modalState.english === false) ? 'Search by Id, Description or Price' : 'Buscar por Id, Descripción o Precio'}
             variant="outlined"
             size='small'
             focused={false}
@@ -70,12 +68,14 @@ const BillingSearch = () => {
               ),
             }}
           />
-          <Button type='submit' sx={{ m: '0px 15px', color: 'black', textTransform: 'none' }} color='info' variant='outlined'>Search</Button>
+          <Button type='submit' sx={{ m: '0px 15px', color: 'black', textTransform: 'none' }} color='info' variant='outlined'>
+            {(modalState.english === false) ? 'Search' : 'Buscar'}
+          </Button>
         </form>
       </Grid>
       {(bills.length === 0) ? <Typography variant='h5' 
       sx={{ textAlign: 'center', color: 'black', fontWeight: 600, mt: 35 }}>
-        No bills found...
+        {(modalState.english === false) ? 'No bills found...' : 'No se encontraron facturas...'}
       </Typography> :
         <BillingTable bills={bills} />
       }

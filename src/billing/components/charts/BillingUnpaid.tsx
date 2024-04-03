@@ -16,7 +16,7 @@ const BillingUnpaid = () => {
     return (
         <Grid width={'70%'}>
             <Box p={5} width={'100%'} display={'flex'} flexDirection={'column'} justifyContent={'space-around'} alignItems={'center'}
-            boxShadow={7} sx={{ borderRadius: 5 }}>
+             sx={{ borderRadius: 5, boxShadow:"0px 0px 28px 5px rgba(0, 0, 0, 0.3)" }}>
                 <Typography fontWeight={600} variant='h4' color='black' fontSize={25}>
                     {(modalState.english === false) ? 'Unpaid Bills' : 'Facturas no pagadas'}
                 </Typography>

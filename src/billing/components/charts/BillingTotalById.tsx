@@ -52,7 +52,7 @@ const BillingTotalById = () => {
   return (
     <Grid width={'70%'}>
       <Box p={5} width={'100%'} display={'flex'} flexDirection={'column'} justifyContent={'space-around'} alignItems={'center'}
-        boxShadow={7} sx={{ borderRadius: 5 }}>
+         sx={{ borderRadius: 5, boxShadow:"0px 0px 28px 5px rgba(0, 0, 0, 0.3)" }}>
         <Box display={"flex"} justifyContent={"space-evenly"} width={'100%'} alignItems={"center"}>
           <Typography fontSize={25} fontWeight={600} variant='h4' color='black' >
             {(modalState.english === false) ? 'Total by Id' : 'Total por Id'}
