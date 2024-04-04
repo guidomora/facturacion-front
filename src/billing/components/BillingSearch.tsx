@@ -4,6 +4,7 @@ import BillingTable from './BillingTable';
 import { useContext, useState } from 'react';
 import { DataContext } from '../../context/DataBillingContext/DataContext';
 import { UiContext } from '../../context/UibillingContext/UiContext';
+import { Bill } from '../../context/DataBillingContext/DataProvider';
 
 
 
@@ -11,9 +12,10 @@ import { UiContext } from '../../context/UibillingContext/UiContext';
 
 
 const BillingSearch = () => {
-  const { bills, getBillsByIdDescriptionPrice } = useContext(DataContext)
+  const { bills } = useContext(DataContext)
   const [formValues, setFormValues] = useState({ search: '' });
   const { modalState } = useContext(UiContext)
+  const [billsFiltered, setBillsFiltered] = useState<Bill[]>([])
 
   const inputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -27,10 +29,18 @@ const BillingSearch = () => {
   const handleSubmit =  (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (formValues.search === '') return
-    getBillsByIdDescriptionPrice(formValues.search)
-    console.log('bills', bills)
+    const filteredBills = bills.filter((bill) => 
+      bill.description.toLowerCase().includes(formValues.search.toLowerCase()) ||
+      bill.price.toString().includes(formValues.search) ||
+      bill.id.toString().includes(formValues.search)
+    )
+    setBillsFiltered(filteredBills)
+    console.log(billsFiltered);
   }
 
+
+  
+  
 
 
   return (
@@ -73,11 +83,11 @@ const BillingSearch = () => {
           </Button>
         </form>
       </Grid>
-      {(bills.length === 0) ? <Typography variant='h5' 
+      {(billsFiltered.length === 0) ? <Typography variant='h5' 
       sx={{ textAlign: 'center', color: 'black', fontWeight: 600, mt: 35 }}>
         {(modalState.english === false) ? 'No bills found...' : 'No se encontraron facturas...'}
       </Typography> :
-        <BillingTable bills={bills} />
+        <BillingTable bills={billsFiltered} />
       }
     </Grid>
   )
