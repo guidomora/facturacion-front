@@ -28,8 +28,10 @@ const BillingCharts = () => {
 
         // gets the year from the date
         bills.forEach((bill) => {
-            const year = bill.date.split('/')[2];
-            uniqueYears.add(year);
+            if (bill.date) {
+                const year = bill.date.split('/')[2];
+                uniqueYears.add(year);
+            }
         });
 
         // converts the set to an array
@@ -98,7 +100,7 @@ const BillingCharts = () => {
                 sx={{ borderRadius: 5, boxShadow:"0px 0px 28px 5px rgba(0, 0, 0, 0.3)" }}>
                 <Box display={'flex'} justifyContent={'space-between'} width={'80%'}>
                     <Typography fontSize={25} textAlign={'center'} fontWeight={600} maxWidth={650} variant='h4' color='black'>
-                        {(modalState.english === false) ? 'Total payments by month' : 'Pagos totales por mes'}
+                        {(modalState.english === false) ? 'Total payments by month' : 'Facturado cada mes'}
                     </Typography>
                     <FormControl size="small">
                         <InputLabel color='info' >

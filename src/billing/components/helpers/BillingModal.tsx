@@ -43,7 +43,6 @@ const BillingModal = () => {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
             e.preventDefault()
-            console.log(formState)
             createBill(formState)
             onReset()
             closeModal()
@@ -148,7 +147,7 @@ const BillingModal = () => {
                             <FormControlLabel
                                 sx={{ color: 'black', '& .Mui-checked': { color: 'black', } }}
                                 value="Yes"
-                                control={<Radio />} label="Yes" />
+                                control={<Radio />} label={(modalState.english === false) ? 'Yes' : 'Si' } />
                             <FormControlLabel
                                 sx={{ color: 'black', '& .Mui-checked': { color: 'black', } }}
                                 value="No"
