@@ -1,5 +1,5 @@
 import { Button, Grid, TextField, Typography, RadioGroup, FormControlLabel, Radio } from '@mui/material';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import Modal from 'react-modal';
 import { UiContext } from '../../../context/UibillingContext/UiContext';
 import useForm, { FormState } from '../../../hooks/useForm';
@@ -32,7 +32,7 @@ const bill: FormState = {
 const BillingModal = () => {
     const { id, date, description, price, inputChange, formState, selectChange, dateChange, onReset } = useForm(bill)
     const { modalState, closeModal } = useContext(UiContext)
-    const { createBill } = useContext(DataContext)
+    const { createBill, getData } = useContext(DataContext)
 
 
 
@@ -47,6 +47,12 @@ const BillingModal = () => {
             onReset()
             closeModal()
     }
+
+    useEffect(() => {
+        if (modalState.modalOpen === true) {
+            getData()
+        }
+    }, [modalState.modalOpen])
 
     return (
         <>

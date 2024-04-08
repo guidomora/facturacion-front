@@ -5,7 +5,8 @@ interface DataContextProps {
   bills: Bill[];
   payments: Payments[];
   secondPayments: Payments[];
-  getData: () => void;
+  total: number;
+  getData: (page?: number) => Promise<void>;
   createBill: (bill: Bill) => void;
   deleteBill: (id: string) => void;
   updateBill: (id: string, bill: Bill) => void;

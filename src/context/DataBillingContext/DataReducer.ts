@@ -1,9 +1,9 @@
 import { FormState } from "../../hooks/useForm"
-import { Bill, DbState, Payments } from "./DataProvider"
+import { Bill, BillObject, DbState, Payments } from "./DataProvider"
 
 
 type ActionModal =
-| { type: 'getData', payload: Bill[] }
+| { type: 'getData', payload: BillObject }
 | { type: 'createBill', payload: FormState }
 | { type: 'deleteBill', payload: string }
 | { type: 'updateBill', payload: FormState }
@@ -17,7 +17,10 @@ export const dataReducer = (state: DbState, action: ActionModal) => {
         case 'getData':
             return {
                 ...state,
-                bills: action.payload
+                bills: action.payload.sortedBillings,
+                total: action.payload.total,
+                next: action.payload.next,
+                previous: action.payload.previous
             }
         case 'createBill':
             return{

@@ -4,6 +4,15 @@ import { dataReducer } from "./DataReducer";
 import billingApi from "../../api/billingApi";
 import { FormState } from "../../hooks/useForm";
 
+export interface BillObject {
+    limit: number;
+    total: number;
+    next: string | null;
+    previous: string | null;
+    sortedBillings: Bill[];
+}
+
+
 export interface Bill {
     date: string;
     description: string;
@@ -14,6 +23,10 @@ export interface Bill {
 
 
 export interface DbState {
+    limit: number;
+    total: number;
+    next: string | null;
+    previous: string | null;
     bills: Bill[];
     payments: Payments[];
     secondPayments: Payments[];
@@ -25,6 +38,10 @@ export interface Payments {
 }
 
 const initialState: DbState = {
+    limit: 0,
+    total: 0,
+    next: null,
+    previous: null,
     bills: [{
         date: '',
         description: '',
@@ -51,13 +68,10 @@ export const DataProvider = ({ children }: DataContextProps) => {
     const [state, dispatch] = useReducer(dataReducer, initialState)
 
     // Bring Data
-    const getData = async () => {
-
+    const getData = async (page?:number) => {
         try {
-            const response = await billingApi.get('/');
-            const data = response.data;
-            // const event = eventsToDateEvents(data.date)
-            // console.log(event)
+            const response = await billingApi.get(`/?page=${page}&limit=10`);
+            const data = response.data;  
             dispatch({ type: 'getData', payload: data });
         } catch (error) {
             console.error("Error al obtener datos de la API", error);

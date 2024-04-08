@@ -7,12 +7,13 @@ import { UiContext } from "../../context/UibillingContext/UiContext";
 import { useContext } from "react";
 
 interface BillingTableProps {
-    bills: Bill[];
+        bills: Bill[];
 }
 
 
 const BillingTable = ({ bills }: BillingTableProps) => {
-    const {modalState} = useContext(UiContext) 
+    const {modalState} = useContext(UiContext)
+    
 
 
     return (
