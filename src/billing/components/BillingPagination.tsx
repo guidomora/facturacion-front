@@ -30,7 +30,7 @@ const BillingPagination = () => {
 
 
   return (
-    <Grid display={'flex'} flexDirection={'column'} alignItems={'center'}>
+    <Grid display={'flex'} flexDirection={'column'} alignItems={'center'} mb={3}>
       <Grid width={'100%'}>
         <BillingTable bills={bills} /> {/* le pasamos las bills que queremos mostrar */}
       </Grid>

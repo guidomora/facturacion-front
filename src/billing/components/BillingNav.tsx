@@ -13,7 +13,7 @@ const BillingNav = () => {
     const {modalState, changeLanguage} = useContext(UiContext)            
 
     return (
-        <Grid display={'flex'} justifyContent={'space-evenly'} alignItems={'center'} p={7} mb={7} borderBottom={'solid 1px #0288d1'} bgcolor={'#e7e7e7'}>
+        <Grid display={'flex'} justifyContent={'space-evenly'} alignItems={'center'} p={4} mb={6} borderBottom={'solid 1px #0288d1'} bgcolor={'#e7e7e7'}>
             <BillingModal />
             <Typography variant='h5' sx={{ color: 'black', fontWeight: 600 }}>
                 {(modalState.english == false) ? 'Billing' : 'Facturas'}
