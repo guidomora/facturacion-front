@@ -3,7 +3,7 @@ import axios from "axios";
 
 
 const billingApi = axios.create({
-    baseURL:'http://localhost:3000/billing'
+    baseURL:'https://factruracion-back-production.up.railway.app/billing'
 })
 
 export default billingApi;
