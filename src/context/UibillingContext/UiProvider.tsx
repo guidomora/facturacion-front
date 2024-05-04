@@ -4,7 +4,7 @@ import { uiReducer } from './UiReducer';
 
 const initialState: InitialStateModal = {
     modalOpen: false,
-    english: false
+    english: true
 }
 
 export interface InitialStateModal {
