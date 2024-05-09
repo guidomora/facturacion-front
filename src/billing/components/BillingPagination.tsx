@@ -60,7 +60,7 @@ const BillingPagination = () => {
       <Grid width={'100%'}>
         <BillingTable bills={paginationBills} /> {/* le pasamos las bills que queremos mostrar */}
       </Grid>
-      <Grid display={'flex'} alignItems={'center'}>
+      <Grid display={'flex'} alignItems={'center'} mb={3}>
         <Button onClick={prevHandler} sx={{ m: '0px 15px', color: 'black' }} color='info' variant='outlined'><ArrowBackIosIcon /></Button>
         <Typography color={'black'}>{counter}</Typography>
         <Button onClick={handleNext} sx={{ m: '0px 15px', color: 'black' }} color='info' variant='outlined'><ArrowForwardIosIcon /></Button>

@@ -60,8 +60,8 @@ const BillingCharts = () => {
         <Grid mt={10} p={5} display={'flex'} flexDirection={'column'} alignItems={'center'}>
             <Box p={5} width={'100%'} display={'flex'} justifyContent={'space-around'} alignItems={'center'}
                 sx={{ borderRadius: 5 }}>
-                <Box display={'flex'} flexDirection={'column'} justifyContent={'space-around'} height={500} sx={{ borderRadius: 5, boxShadow:"0px 0px 28px 5px rgba(0, 0, 0, 0.3)" }}>
-                    <Typography fontSize={25} textAlign={'center'} fontWeight={600} width={350} variant='h4' color='black'>
+                <Box display={'flex'} flexDirection={'column'} justifyContent={'space-around'} width={'25%'} height={500} sx={{ borderRadius: 5, boxShadow:"0px 0px 28px 5px rgba(0, 0, 0, 0.3)" }}>
+                    <Typography fontSize={25} textAlign={'center'} fontWeight={600} variant='h4' color='black'>
                         {(modalState.english === false) ? 'Paid / Unpaid Bills' : 'Facturas pagadas / no pagadas'}
                     </Typography>
                     <Box display={'flex'} alignItems={'center'} justifyContent={'space-around'}>
