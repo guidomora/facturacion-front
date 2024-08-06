@@ -17,7 +17,7 @@ export interface Bill {
 
 export interface DbState {
     limit: number;
-    total: number;
+    totalItems: number;
     next: string | null;
     previous: string | null;
     bills: Bill[];
@@ -32,7 +32,7 @@ export interface Payments {
 
 const initialState: DbState = {
     limit: 0,
-    total: 0,
+    totalItems: 0,
     next: null,
     previous: null,
     bills: [{
@@ -61,11 +61,14 @@ export const DataProvider = ({ children }: DataContextProps) => {
     const [state, dispatch] = useReducer(dataReducer, initialState)
 
     // Bring Data
-    const getData = async () => {
+    const getData = async (page:number, limit:number) => {
         try {
-            const response = await billingApi.get('/');
+            const response = await billingApi.get(`?page=${page}&limit=${limit}`);
             const data = response.data;
-            dispatch({ type: 'getData', payload: data });
+            console.log(data);
+            
+            dispatch({ type: 'getData', payload: {bills:data.billsFromDb, totalItems:data.totalItems} });
+            
         } catch (error) {
             console.error("Error al obtener datos de la API", error);
         }
@@ -76,7 +79,10 @@ export const DataProvider = ({ children }: DataContextProps) => {
         try {
             const response = await billingApi.get(`/search/${searchParam}`);
             const data = response.data;
+            console.log(searchParam);
+            
             dispatch({ type: 'getBillsByIdDescriptionPrice', payload: data });
+            return data
         } catch (error) {
             console.error("Error al obtener datos de la API", error);
         }
@@ -136,16 +142,40 @@ export const DataProvider = ({ children }: DataContextProps) => {
         }
     }
 
+    const getBillsByPerson = async (personLetter:string, personDate:string) => {
+        try {
+            const {data} = await billingApi.get(`/byPerson/${personLetter}`, {
+                params: {personDate}
+            })
+            dispatch({type:'getBillsByPerson', payload:data})
+        } catch (error) {
+            console.error("Error al obtener datos de la API", error);
+        }
+    }
+
+    const getUnpaidBills = async () => {
+        try {
+            const {data} = await billingApi.get('/unpaid');
+            console.log(data);
+            dispatch({type:'getUnpaidBills', payload:data})
+        } catch (error) {
+            console.error("Error al obtener datos de la API", error);
+        }
+    }
+
     return (
         <DataContext.Provider value={{
             ...state,
+            totalItems: state.totalItems,
             getData,
             createBill,
             deleteBill,
             updateBill,
             getBillsByIdDescriptionPrice,
             getPaymentByYear,
-            getTotalByIdAndYear
+            getTotalByIdAndYear,
+            getBillsByPerson,
+            getUnpaidBills
         }}>
             {children}
         </DataContext.Provider>

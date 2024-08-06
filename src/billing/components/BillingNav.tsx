@@ -8,6 +8,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import TranslateIcon from '@mui/icons-material/Translate';
 import HomeIcon from '@mui/icons-material/Home';
+import { Person } from '@mui/icons-material'
 
 const BillingNav = () => {
     const {modalState, changeLanguage} = useContext(UiContext)            
@@ -30,12 +31,17 @@ const BillingNav = () => {
             </Link>
             <Link to={'/charts'} style={{ textDecoration: 'none', color: 'black' }}>
                 <Button sx={{ m: '0px 15px', color: 'black', textTransform: 'none', display:'flex', alignItems:'center' }} color='info' variant='outlined'>
-                    {(modalState.english == false) ? 'Charts' : 'Gráficos'} <BarChartIcon sx={{ml:1, height:20}}/>
+                    {(modalState.english == false) ? 'Charts' : 'Resumenes'} <BarChartIcon sx={{ml:1, height:20}}/>
                 </Button>
             </Link>
             <Link to={'/search'} style={{ textDecoration: 'none', color: 'black' }}>
                 <Button sx={{ m: '0px 15px', color: 'black', textTransform: 'none', display:'flex', alignItems:'center' }} color='info' variant='outlined'>
                     {(modalState.english == false) ? 'Search bills' : 'Buscar facturas'} <SearchIcon sx={{ml:1, height:20}}/>
+                </Button>
+            </Link>
+            <Link to={'/persons'} style={{ textDecoration: 'none', color: 'black' }}>
+                <Button sx={{ m: '0px 15px', color: 'black', textTransform: 'none', display:'flex', alignItems:'center' }} color='info' variant='outlined'>
+                    {(modalState.english == false) ? 'Persons' : 'Personas'} <Person sx={{ml:1, height:20}}/>
                 </Button>
             </Link>
         </Grid>

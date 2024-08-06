@@ -34,17 +34,10 @@ const formState = {
 
 const BillingUpdateModal = () => {
     const { modalUpdate, closeModal } = useContext(UpdateContext)
-    const { updateBill, getData } = useContext(DataContext)
+    const { updateBill } = useContext(DataContext)
     const { modalState } = useContext(UiContext)
     const [formValues, setFormValues] = useState<FormState>(formState);
 
-
-    useEffect(() => {
-        if (modalUpdate.modalUpdateOpen === true) {
-            getData()
-        }
-        
-    }, [ modalUpdate.modalUpdateOpen])
 
     const helperText = (text: string) => {
         return (modalState.english === false) ? `${text} is required` : `El ${text} es requerido`

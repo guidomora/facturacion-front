@@ -1,5 +1,5 @@
 import { Button, Grid, TextField, Typography, RadioGroup, FormControlLabel, Radio } from '@mui/material';
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import Modal from 'react-modal';
 import { UiContext } from '../../../context/UibillingContext/UiContext';
 import useForm, { FormState } from '../../../hooks/useForm';
@@ -32,27 +32,22 @@ const bill: FormState = {
 const BillingModal = () => {
     const { id, date, description, price, inputChange, formState, selectChange, dateChange, onReset } = useForm(bill)
     const { modalState, closeModal } = useContext(UiContext)
-    const { createBill, getData } = useContext(DataContext)
+    const { createBill } = useContext(DataContext)
 
 
 
-    const helperText = (text:string) => {
+    const helperText = (text: string) => {
         return (modalState.english === false) ? `${text} is required` : `El ${text} es requerido`
     }
 
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-            e.preventDefault()
-            createBill(formState)
-            onReset()
-            closeModal()
+        e.preventDefault()
+        createBill(formState)
+        onReset()
+        closeModal()
     }
 
-    useEffect(() => {
-        if (modalState.modalOpen === true) {
-            getData()
-        }
-    }, [modalState.modalOpen])
 
     return (
         <>
@@ -99,7 +94,7 @@ const BillingModal = () => {
                             name='id'
                             onChange={inputChange}
                             value={id}
-                            label='Billing Id'
+                            label='Id de la factura'
                             focused={false}
                             size='small'
                             fullWidth
@@ -123,7 +118,7 @@ const BillingModal = () => {
                             type='number'
                             name='price'
                             onChange={inputChange}
-                            value={price} 
+                            value={price}
                             label={(modalState.english === false) ? 'Price' : 'Precio'}
                             focused={false} size='small'
                             error={(price! == 0) ? true : false}
@@ -153,7 +148,7 @@ const BillingModal = () => {
                             <FormControlLabel
                                 sx={{ color: 'black', '& .Mui-checked': { color: 'black', } }}
                                 value="Yes"
-                                control={<Radio />} label={(modalState.english === false) ? 'Yes' : 'Si' } />
+                                control={<Radio />} label={(modalState.english === false) ? 'Yes' : 'Si'} />
                             <FormControlLabel
                                 sx={{ color: 'black', '& .Mui-checked': { color: 'black', } }}
                                 value="No"
@@ -163,6 +158,7 @@ const BillingModal = () => {
                             {(modalState.english === false) ? 'Date' : 'Fecha'}
                         </Typography>
                         <DatePicker
+                            autoComplete='off'
                             name='date'
                             value={date}
                             dateFormat='dd/MM/yyyy'
@@ -176,7 +172,7 @@ const BillingModal = () => {
                             fullWidth
                             variant="contained"
                             sx={{ backgroundColor: "black", color: "white", textTransform: "none", mt: 3 }}>
-                                {(modalState.english === false) ? 'Create' : 'Crear'}
+                            {(modalState.english === false) ? 'Create' : 'Crear'}
                         </Button>
                     </Grid>
                 </form>

@@ -9,7 +9,7 @@ import { UiContext } from "../../../context/UibillingContext/UiContext"
 const BillingTotalById = () => {
   const { bills, secondPayments, getTotalByIdAndYear } = useContext(DataContext)
   const { modalState } = useContext(UiContext)
-  const [selectedYear, setSelectedYear] = useState('2024')
+  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear().toString())
   const [selectedId, setSelectedId] = useState('G')
   const [avalibleYears, setAvalibleYears] = useState<string[]>([])
 

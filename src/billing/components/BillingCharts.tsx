@@ -1,22 +1,22 @@
 import { Grid, Box, Typography, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material'
 import { useContext, useEffect, useState } from 'react'
-import { VictoryAxis, VictoryBar, VictoryChart, VictoryPie } from 'victory'
+import { VictoryAxis, VictoryBar, VictoryChart } from 'victory'
 import { DataContext } from '../../context/DataBillingContext/DataContext'
 import { UiContext } from '../../context/UibillingContext/UiContext'
 import BillingUnpaid from './charts/BillingUnpaid'
-import SquareIcon from '@mui/icons-material/Square';
+// import SquareIcon from '@mui/icons-material/Square';
 import BillingTotalById from './charts/BillingTotalById'
 
 
 
 
 const BillingCharts = () => {
-    const { bills, getData, getPaymentByYear, payments } = useContext(DataContext)
+    const { bills, getPaymentByYear, payments } = useContext(DataContext)
     const { closeModal, modalState } = useContext(UiContext)
     const [avalibleYears, setAvalibleYears] = useState<string[]>([])
-    const totalUnpaid = bills.filter((bill) => bill.paid === 'No').length
-    const totalPaid = bills.filter((bill) => bill.paid === 'Yes').length
-    const [selectedYear, setSelectedYear] = useState('2024')
+    // const totalUnpaid = bills.filter((bill) => bill.paid === 'No').length
+    // const totalPaid = bills.filter((bill) => bill.paid === 'Yes').length
+    const [selectedYear, setSelectedYear] = useState(new Date().getFullYear().toString())
 
     const inputChange = ({ target }: SelectChangeEvent<string>) => {
         setSelectedYear(target.value)
@@ -42,7 +42,6 @@ const BillingCharts = () => {
 
 
     useEffect(() => {
-        getData();
         getPaymentByYear(Number(selectedYear)); // sends the year to get the payments  
     }, [selectedYear, closeModal]);
 
@@ -60,35 +59,6 @@ const BillingCharts = () => {
         <Grid mt={10} p={5} display={'flex'} flexDirection={'column'} alignItems={'center'}>
             <Box p={5} width={'100%'} display={'flex'} justifyContent={'space-around'} alignItems={'center'}
                 sx={{ borderRadius: 5 }}>
-                <Box display={'flex'} flexDirection={'column'} justifyContent={'space-around'} width={'25%'} height={500} sx={{ borderRadius: 5, boxShadow:"0px 0px 28px 5px rgba(0, 0, 0, 0.3)" }}>
-                    <Typography fontSize={25} textAlign={'center'} fontWeight={600} variant='h4' color='black'>
-                        {(modalState.english === false) ? 'Paid / Unpaid Bills' : 'Facturas pagadas / no pagadas'}
-                    </Typography>
-                    <Box display={'flex'} alignItems={'center'} justifyContent={'space-around'}>
-                        <Typography display={'flex'} alignItems={'center'} color={'black'}>
-                            {(modalState.english === false) ? 'Unpaid' : 'No pagadas'}
-                            <SquareIcon color='error' sx={{ fontSize: 30, ml: 1 }} />
-                        </Typography>
-                        <Typography display={'flex'} alignItems={'center'} color={'black'}>
-                            {(modalState.english === false) ? 'Paid' : 'Pagadas'}
-                            <SquareIcon color='info' sx={{ fontSize: 30, ml: 1 }} />
-                        </Typography>
-                    </Box>
-                    <Box height={300}>
-                        <VictoryPie
-                            colorScale={["#0288d1", "#ff0831"]}
-                            style={{ labels: { fill: "black", fontSize: '22px' } }}
-                            innerRadius={100}
-                            labelRadius={120}
-                            labels={({ datum }) => `${datum.y} ${(modalState.english === false) ? 'bills' : 'facturas'} `}
-                            data={[
-                                { x: 'Paid', y: totalPaid },
-                                { x: 'Unpaid', y: totalUnpaid },
-                            ]}
-                        />
-                    </Box>
-                </Box>
-                {/* Unpaid bills */}
                 <BillingUnpaid />
             </Box>
             

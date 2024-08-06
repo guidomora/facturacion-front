@@ -12,7 +12,7 @@ import { Bill } from '../../context/DataBillingContext/DataProvider';
 
 
 const BillingSearch = () => {
-  const { bills } = useContext(DataContext)
+  const { getBillsByIdDescriptionPrice } = useContext(DataContext)
   const [formValues, setFormValues] = useState({ search: '' });
   const { modalState } = useContext(UiContext)
   const [billsFiltered, setBillsFiltered] = useState<Bill[]>([])
@@ -26,20 +26,14 @@ const BillingSearch = () => {
     }));
 };
   
-  const handleSubmit =  (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (formValues.search === '') return
-    const filteredBills = bills.filter((bill) => 
-      bill.description.toLowerCase().includes(formValues.search.toLowerCase()) ||
-      bill.price.toString().includes(formValues.search) ||
-      bill.id.toString().includes(formValues.search)
-    )
-    setBillsFiltered(filteredBills)
-    console.log(billsFiltered);
+    const filteredBills = await getBillsByIdDescriptionPrice(formValues.search);
+    setBillsFiltered(filteredBills!)
   }
 
 
-  
   
 
 

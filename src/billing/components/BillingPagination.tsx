@@ -2,63 +2,44 @@ import { useContext, useEffect, useState } from 'react'
 import { DataContext } from '../../context/DataBillingContext/DataContext'
 import { Button, Grid, Typography } from '@mui/material'
 import BillingTable from './BillingTable'
-import { Bill } from '../../context/DataBillingContext/DataProvider'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { UiContext } from '../../context/UibillingContext/UiContext';
+import { UpdateContext } from '../../context/UibillingContext/UpdateModalContext';
 
 
 
 
 const BillingPagination = () => {
   const itemsPerPage = 10
-  const { bills, getData } = useContext(DataContext) //data
-  const [currentPage, setCurrentPage] = useState(0) // pagination
-  const [paginationBills, setPaginationBills] = useState<Bill[]>([]) // pagination
-  const [counter, setCounter] = useState(0) // pagination page number
+  const { modalState } = useContext(UiContext)
+  const { modalUpdate } = useContext(UpdateContext)
+  const { bills, getData, totalItems} = useContext(DataContext) //data
+  const [counter, setCounter] = useState(1) // pagination page number
 
 
   useEffect(() => {
-    getData()
-  } , [])
-
-  useEffect(() => {
-    const newBills = bills.slice(currentPage, currentPage + itemsPerPage)
-    setPaginationBills(newBills)
-  }, [currentPage, bills])
+    getData(counter, itemsPerPage)
+    console.log(totalItems, 'asdasdas');
+    
+  } , [counter, modalUpdate, modalState])
 
 
 
-  // Buttons for pagination
   const handleNext = () => {
-    const maxPages = Math.ceil(bills.length / itemsPerPage);
-    const nextPage = currentPage + itemsPerPage;
-
-
-    if (nextPage < maxPages * itemsPerPage) {
-      setCurrentPage(nextPage);
-      setCounter(counter + 1)
-    } else if (currentPage < maxPages - 1) {
-      setCurrentPage(maxPages - 1);
-    }
-
+    if ((itemsPerPage * counter) >= totalItems ) return
+    setCounter( counter + 1)
   }
-
-  const prevHandler = () => {
-    if (currentPage === 0) return
-
-    setCurrentPage(currentPage - itemsPerPage)
-    if (counter <= 0) {
-      setCounter(0)
-    } else {
-      setCounter(counter - 1)
-    }
+  const prevHandler  = () => {
+    if (counter <= 1) return
+    setCounter( counter - 1)
   }
 
 
   return (
     <Grid display={'flex'} flexDirection={'column'} alignItems={'center'}>
       <Grid width={'100%'}>
-        <BillingTable bills={paginationBills} /> {/* le pasamos las bills que queremos mostrar */}
+        <BillingTable bills={bills} /> {/* le pasamos las bills que queremos mostrar */}
       </Grid>
       <Grid display={'flex'} alignItems={'center'} mb={3}>
         <Button onClick={prevHandler} sx={{ m: '0px 15px', color: 'black' }} color='info' variant='outlined'><ArrowBackIosIcon /></Button>

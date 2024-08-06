@@ -3,13 +3,15 @@ import { Bill, DbState, Payments } from "./DataProvider"
 
 
 type ActionModal =
-| { type: 'getData', payload: Bill[] }
-| { type: 'createBill', payload: FormState }
-| { type: 'deleteBill', payload: string }
-| { type: 'updateBill', payload: FormState }
-| { type: 'getBillsByIdDescriptionPrice', payload: Bill[] }
-| { type: 'getPaymentByYear', payload: Payments[] }
-| { type: 'getTotalByIdAndYear', payload: Payments[]}
+    | { type: 'getData', payload: { bills: Bill[], totalItems: number } }
+    | { type: 'createBill', payload: FormState }
+    | { type: 'deleteBill', payload: string }
+    | { type: 'updateBill', payload: FormState }
+    | { type: 'getBillsByIdDescriptionPrice', payload: Bill[] }
+    | { type: 'getPaymentByYear', payload: Payments[] }
+    | { type: 'getTotalByIdAndYear', payload: Payments[] }
+    | { type: 'getBillsByPerson', payload: Bill[] }
+    | { type: 'getUnpaidBills', payload: Bill[] }
 
 
 export const dataReducer = (state: DbState, action: ActionModal) => {
@@ -17,10 +19,11 @@ export const dataReducer = (state: DbState, action: ActionModal) => {
         case 'getData':
             return {
                 ...state,
-                bills: action.payload
+                bills: action.payload.bills,
+                totalItems: action.payload.totalItems
             }
         case 'createBill':
-            return{
+            return {
                 ...state,
                 bills: [...state.bills, action.payload] // to the existing bills, add the new bill
             }
@@ -48,6 +51,16 @@ export const dataReducer = (state: DbState, action: ActionModal) => {
             return {
                 ...state,
                 secondPayments: action.payload
+            }
+        case 'getBillsByPerson':
+            return {
+                ...state,
+                bills: action.payload
+            }
+        case 'getUnpaidBills':
+            return {
+                ...state,
+                bills: action.payload
             }
         default:
             return state
